@@ -1,0 +1,9 @@
+.wrapper {
+    display: none; 
+    cursor: pointer;
+    
+    @media (min-width: 768px) { 
+        display: block; 
+    }
+    
+}
