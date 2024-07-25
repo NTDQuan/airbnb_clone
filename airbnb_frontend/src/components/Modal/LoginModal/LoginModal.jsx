@@ -3,7 +3,8 @@ import axios from 'axios'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types';
 import {  SubmitHandler, useForm } from 'react-hook-form'
-import styles from './RegisterModal.module.scss'
+import styles from './LoginModal.module.scss'
+import useSignIn from 'react-auth-kit/hooks/useSignIn'
 
 import Modal from '../Modal'
 
@@ -12,11 +13,17 @@ import Heading from '../../Heading/Heading';
 import Input from '../../Input/Input';
 import toast from 'react-hot-toast';
 import Button from '../../Button/button';
+import useLoginModal from '../../../hooks/useLoginModal';
+import fetchUserInfo from '../../../actions/fetchUserInfo'; 
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
-const RegisterModal = () => {
+const LoginModal = () => {
   const registerModal = useRegisterModal();
+  const signIn = useSignIn()
+  const loginModal = useLoginModal();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -25,7 +32,6 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     }
@@ -33,17 +39,32 @@ const RegisterModal = () => {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    axios.post('http://localhost:8080/api/auth/register', data)
-      .then(() => {
-        registerModal.onClose();
-      })
-      .catch((errors) => {
-        toast.error('Something went wrong!')
-      }) 
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }
+    axios.post('http://localhost:8080/api/auth/login', data)
+        .then((res) => {
+            setIsLoading(false);
+            if (res.status === 200) {
+                const user = fetchUserInfo(res.accessToken);
+                if (signIn({
+                    auth: {
+                        token: res.data.accessToken,
+                        type: 'Bearer',
+                        userState: user
+                    },
+                    refresh: res.data.refreshToken
+                })) {
+                    toast.success('Đăng nhập thành công');
+                    navigate('/');
+                } else {
+                    toast.error('Sai tài khoản hoặc mật khẩu');
+                }
+            }
+        })
+        .catch((error) => {
+            setIsLoading(false);
+            toast.error('Đã xảy ra lỗi khi đăng nhập');
+            console.error('Error logging in:', error);
+        });
+  };
 
   const bodyContent = (
     <div className={cx('wrapper')}>
@@ -53,14 +74,6 @@ const RegisterModal = () => {
       <Input 
         id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input 
-        id="name"
-        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -97,10 +110,10 @@ const RegisterModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={registerModal.isOpen}
-      title="Đăng kí"
+      isOpen={loginModal.isOpen}
+      title="Đăng nhập"
       actionLabel="Continue"
-      onClose={registerModal.onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
@@ -108,4 +121,4 @@ const RegisterModal = () => {
   )
 }
 
-export default RegisterModal
+export default LoginModal

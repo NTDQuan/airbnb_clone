@@ -53,7 +53,7 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                         <div className={cx('modal')}>
                             {/* HEADER */}
                             <div className={cx('header')}>
-                                <button className={cx('close-button')} onClose={handleClose}>
+                                <button className={cx('close-button')} onClick={handleClose}>
                                     <IoMdClose size={18}/>
                                 </button>
                                 <div className={cx('title')}>
@@ -81,6 +81,7 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                         onClick={handleSubmit}
                                     />
                                 </div>
+                                {footer}
                             </div>
                         </div>
                     </div>

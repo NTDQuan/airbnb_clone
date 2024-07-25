@@ -9,7 +9,8 @@ import UserMenu from '../UserMenu/UserMenu'
 
 const cx = classNames.bind(styles)
 
-const HomeHeader = () => {
+const HomeHeader = ({ currentUser }) => {
+  console.log({ currentUser })
   return (
     <div className={cx('wrapper')}>
         <div className={cx('container')}>

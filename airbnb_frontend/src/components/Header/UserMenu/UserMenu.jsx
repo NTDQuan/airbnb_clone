@@ -5,9 +5,13 @@ import styles from './UserMenu.module.scss'
 import { AiOutlineMenu } from 'react-icons/ai'
 import Avatar from './Avatar/Avatar'
 import MenuItem from './MenuItem/MenuItem'
+import useRegisterModal from '../../../hooks/useRegisterModal'
+import useLoginModal from '../../../hooks/useLoginModal'
 
 const cx = classNames.bind(styles)
 const UserMenu = () => {
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = useCallback(() => {
@@ -32,11 +36,11 @@ const UserMenu = () => {
           <div className={cx('user-menu-dropdown-content')}>
             <>
               <MenuItem
-                onClick={() => {}}
+                onClick={loginModal.onOpen}
                 label="Đăng nhập"
               />
               <MenuItem
-                onClick={() => {}}
+                onClick={registerModal.onOpen}
                 label="Đăng ký"
               />
             </>
