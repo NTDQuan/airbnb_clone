@@ -6,8 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.ntdquan.airbnb_backend.user.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -46,10 +52,9 @@ public class JwtService {
 		return extractExpiration(token).before(new Date());
 	}
 	
-	public Boolean validateToken(String token, UserDetails userDetails) {
-		final String username = extractUsername(token);
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-	}
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token);
+    }
 	
 	public String generateToken(String username) {
 		Map<String, Object> claims = new HashMap<>();
@@ -68,5 +73,13 @@ public class JwtService {
 	private Key getSignKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRETKEY);
 		return Keys.hmacShaKeyFor(keyBytes);
+	}
+	
+	public User getSession() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			throw new AccessDeniedException("Not authorized");
+		}
+		return (User) authentication.getPrincipal();
 	}
 }

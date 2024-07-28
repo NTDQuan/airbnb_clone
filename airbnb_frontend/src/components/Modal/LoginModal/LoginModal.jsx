@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types';
@@ -16,6 +16,8 @@ import Button from '../../Button/button';
 import useLoginModal from '../../../hooks/useLoginModal';
 import fetchUserInfo from '../../../actions/fetchUserInfo'; 
 import { useNavigate } from 'react-router-dom';
+import { act } from 'react';
+import useUserData from '../../../hooks/useUserData';
 
 const cx = classNames.bind(styles)
 
@@ -25,6 +27,7 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const userState = useUserData();
 
   const {
     register,
@@ -37,26 +40,39 @@ const LoginModal = () => {
     }
   });
 
+  useEffect(() => {
+    async function autoLogin() {
+      try {
+        const res = await axios({
+          method: 'get',
+          url: 'http://localhost:8080/api/auth/auto-login',
+          withCredentials: true,
+        });
+
+        if (res.status === 200) {
+          userState.onLogin(await fetchUserInfo());
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error during auto-login:', error);
+        navigate('/');
+      }
+    }
+    autoLogin();
+  }, []);
+
   const onSubmit = (data) => {
     setIsLoading(true);
-    axios.post('http://localhost:8080/api/auth/login', data)
-        .then((res) => {
+    axios.post('http://localhost:8080/api/auth/login', data, { withCredentials: true })
+        .then(async (res) => {
             setIsLoading(false);
             if (res.status === 200) {
-                const user = fetchUserInfo(res.accessToken);
-                if (signIn({
-                    auth: {
-                        token: res.data.accessToken,
-                        type: 'Bearer',
-                        userState: user
-                    },
-                    refresh: res.data.refreshToken
-                })) {
-                    toast.success('Đăng nhập thành công');
-                    navigate('/');
-                } else {
-                    toast.error('Sai tài khoản hoặc mật khẩu');
-                }
+              userState.onLogin(await fetchUserInfo());
+              toast.success('Đăng nhập thành công');
+              loginModal.onClose();
+            } else {
+              toast.error('Sai tài khoản hoặc mật khẩu');            
             }
         })
         .catch((error) => {
