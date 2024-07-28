@@ -8,24 +8,17 @@ import Modal from '../../../components/Modal/Modal'
 import RegisterModal from '../../../components/Modal/RegisterModal/RegisterModal'
 import ToastProvider from '../../../providers/ToastProvider'
 import LoginModal from '../../../components/Modal/LoginModal/LoginModal'
+import useUserData from '../../../hooks/useUserData';
 
 const cx = classNames.bind(styles)
 
 const DefaultLayout = ({ children }) => {
-  const authUser = useAuthUser();
+  const authUser = useUserData();
   const [currentUser, setCurrentUser] = useState(null);
+  
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await authUser();
-        setCurrentUser(user);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    fetchUser();
-  }, []);
+    setCurrentUser(authUser.user);
+  }, [authUser.user]);
 
   return (
     <div className={cx('wrapper')}>

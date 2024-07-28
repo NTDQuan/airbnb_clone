@@ -18,7 +18,7 @@ const HomeHeader = ({ currentUser }) => {
               <div className={cx('contain')}>
                 <Logo/>
                 <SearchBar/>
-                <UserMenu/>
+                <UserMenu currentUser={currentUser}/>
               </div>
             </Container>
         </div>

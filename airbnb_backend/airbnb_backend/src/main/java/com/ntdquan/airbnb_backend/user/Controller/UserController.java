@@ -15,7 +15,7 @@ import com.ntdquan.airbnb_backend.user.model.User;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/api/user")
 public class UserController {
 	@Autowired
@@ -27,12 +27,8 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
     @GetMapping("/")
-    public User getUser(@RequestHeader("Authorization") String token) {
-    	logger.info("Requested token: {}", token);
-        String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        String username = jwtService.extractUsername(actualToken);
-        User user = (User) userService.loadUserByUsername(username);
-        logger.info("Retrieved user details for username: {}", username);
-        return user;
+    public User getCurrentUser() {
+    	User currentUser = jwtService.getSession();
+    	return currentUser;
     }
 }
