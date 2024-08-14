@@ -23,7 +23,6 @@ const cx = classNames.bind(styles)
 
 const LoginModal = () => {
   const registerModal = useRegisterModal();
-  const signIn = useSignIn()
   const loginModal = useLoginModal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,28 +38,6 @@ const LoginModal = () => {
       password: '',
     }
   });
-
-  useEffect(() => {
-    async function autoLogin() {
-      try {
-        const res = await axios({
-          method: 'get',
-          url: 'http://localhost:8080/api/auth/auto-login',
-          withCredentials: true,
-        });
-
-        if (res.status === 200) {
-          userState.onLogin(await fetchUserInfo());
-        } else {
-          navigate('/');
-        }
-      } catch (error) {
-        console.error('Error during auto-login:', error);
-        navigate('/');
-      }
-    }
-    autoLogin();
-  }, []);
 
   const onSubmit = (data) => {
     setIsLoading(true);

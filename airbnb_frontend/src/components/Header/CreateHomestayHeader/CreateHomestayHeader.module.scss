@@ -1,0 +1,46 @@
+.wrapper {
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 10;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
+
+    .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eeeeee;
+
+        .contain {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+
+            @media (min-width: 768px) { 
+                gap: 0; 
+            }
+
+            button {
+                display: inline-flex;
+                cursor: pointer;
+                text-align: center;
+                border: 1px solid #dddddd;
+                background-color: transparent;
+                position: relative;
+                padding-right: 16px;
+                padding-left: 16px;
+                border-radius: 32px;
+                height: 40px;
+                align-items: center;
+                font-size: 1.4rem;
+                line-height: 1.8rem;
+                font-weight: 500;
+
+                &:hover {
+                    border-color: #222222;
+                }
+            }
+        }
+    }
+}

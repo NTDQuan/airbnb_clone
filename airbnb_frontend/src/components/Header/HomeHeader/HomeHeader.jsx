@@ -5,12 +5,11 @@ import images from '../../../asserts/image/image'
 import Container from '../Container/Container'
 import Logo from '../Logo/Logo'
 import SearchBar from '../SearchBar/SearchBar'
-import UserMenu from '../UserMenu/UserMenu'
+import UserMenu from '../UserMenu/HomeUserMenu/UserMenu'
 
 const cx = classNames.bind(styles)
 
 const HomeHeader = ({ currentUser }) => {
-  console.log({ currentUser })
   return (
     <div className={cx('wrapper')}>
         <div className={cx('container')}>

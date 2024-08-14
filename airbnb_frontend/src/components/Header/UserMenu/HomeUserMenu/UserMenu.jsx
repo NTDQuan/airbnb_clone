@@ -3,11 +3,11 @@ import classNames from 'classnames/bind'
 import styles from './UserMenu.module.scss'
 
 import { AiOutlineMenu } from 'react-icons/ai'
-import Avatar from './Avatar/Avatar'
-import MenuItem from './MenuItem/MenuItem'
-import useRegisterModal from '../../../hooks/useRegisterModal'
-import useLoginModal from '../../../hooks/useLoginModal'
-import useUserData from '../../../hooks/useUserData'
+import Avatar from '../Avatar/Avatar'
+import MenuItem from '../MenuItem/MenuItem'
+import useRegisterModal from '../../../../hooks/useRegisterModal'
+import useLoginModal from '../../../../hooks/useLoginModal'
+import useUserData from '../../../../hooks/useUserData'
 import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
@@ -58,7 +58,9 @@ const UserMenu = ({ currentUser }) => {
                 />
                 <hr />
                 <MenuItem
-                  onClick={() => {}}
+                  onClick={() => {
+                    navigate('/hosting');
+                  }}
                   label="Quản lý nhà/phòng cho thuê"
                 />
                 <MenuItem

@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    background-color: inherit;
+    z-index: inherit;
+    scrollbar-width: none;
+
+    @media (min-width: 744px) { 
+        overflow-y: auto;
+        margin-top: 88px;
+        border-top: none;
+        margin-bottom: 82px;
+        margin-top: 61px;
+        height: calc(100vh - calc(88px + 82px));
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+      
+
+
+
+}

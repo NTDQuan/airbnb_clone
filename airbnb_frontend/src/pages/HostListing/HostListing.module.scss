@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 4.8rem;
+        margin-bottom: 4.8rem;
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            line-height: 1.6rem;
+        }
+
+        .utility-button {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            font-weight: inherit;
+        }
+    }
+
+    .list {
+        width: 100%;
+
+        table {
+            width: 100%;
+            border: 1px solid transparent;
+            border-spacing: 1.2rem;
+            border-collapse: collapse;
+            text-align: left;
+
+            thead {
+                .listing {
+                    padding: 1.2rem;
+                    width: 50%;
+                    min-width: 335px;
+                }
+
+                .location {
+                    padding: 1.2rem;
+                    width: 27%;
+                }
+
+                .status {
+                    padding: 1.2rem;
+                    width: 19%;
+                }
+            }
+
+            tbody {
+                tr {
+                    &:hover {
+                        background: #F7F7F7;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

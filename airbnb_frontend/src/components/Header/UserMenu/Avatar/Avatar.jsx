@@ -11,8 +11,8 @@ const Avatar = () => {
         src={images.user_icon}
         alt='logo'
         className={cx('wrapper')}
-        height="30"
-        width="30"
+        height="32"
+        width="32"
     />
   )
 }

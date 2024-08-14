@@ -44,18 +44,18 @@ public class AuthController {
 	public ResponseEntity<JwtResponse> login(@RequestBody User request, HttpServletResponse response) {
 		JwtResponse jwtResponse = authService.authenticate(request);
 		Cookie accessTokenCookie = new Cookie("accessToken", jwtResponse.getAccessToken());
-		//accessTokenCookie.setHttpOnly(true);
+		accessTokenCookie.setHttpOnly(true);
 		accessTokenCookie.setSecure(true);
 		accessTokenCookie.setPath("/");
 		accessTokenCookie.setMaxAge((int) JWT_TOKEN_VALIDITY / 1000);
-		//accessTokenCookie.setAttribute("SameSite", "None");
+		accessTokenCookie.setAttribute("SameSite", "None");
 		
 		Cookie refreshTokenCookie = new Cookie("refreshToken", jwtResponse.getToken());
-		//refreshTokenCookie.setHttpOnly(true);
+		refreshTokenCookie.setHttpOnly(true);
 		refreshTokenCookie.setSecure(true);
 		refreshTokenCookie.setPath("/");
 		refreshTokenCookie.setMaxAge((int) 600000 / 1000);
-		//refreshTokenCookie.setAttribute("SameSite", "None");
+		refreshTokenCookie.setAttribute("SameSite", "None");
 		
 		response.addCookie(accessTokenCookie);
 		response.addCookie(refreshTokenCookie);

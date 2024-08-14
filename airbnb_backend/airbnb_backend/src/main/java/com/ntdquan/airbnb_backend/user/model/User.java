@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -11,11 +12,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -26,12 +30,17 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false, unique = true)
 	private String email;
 	private String image;
+	@Column(nullable = false)
 	private String password;
 	private String name;
 	private String address;
 	private String phoneNumber;
+	
+	@OneToMany(mappedBy="hostID")
+	private Set<Homestay> homestayList;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
@@ -43,7 +52,7 @@ public class User implements UserDetails {
 	}
 
 	public User(Long id, String email, String image, String password, String name, String address, String phoneNumber,
-			Date createAt, Date updatedAt) {
+			Set<Homestay> homestayList ,Date createAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -52,6 +61,7 @@ public class User implements UserDetails {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
+		this.homestayList = homestayList;
 		this.createAt = createAt;
 		this.updatedAt = updatedAt;
 	}
@@ -94,6 +104,14 @@ public class User implements UserDetails {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Set<Homestay> getHomestayList() {
+		return homestayList;
+	}
+
+	public void setHomestayList(Set<Homestay> homestayList) {
+		this.homestayList = homestayList;
 	}
 
 	public Date getCreateAt() {

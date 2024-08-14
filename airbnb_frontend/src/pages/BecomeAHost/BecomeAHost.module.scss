@@ -1,0 +1,146 @@
+.wrapper {
+    background-color: inherit;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+
+    @media (min-width: 768px) {
+        overflow-y: auto;
+        margin-top: 61px;
+        border-top: none;
+        height: calc(100vh - calc(88px));
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .container {
+        margin-top: auto;
+        margin-bottom: auto;
+
+        .content {
+            width: 100%;
+            background-color: #FFFFFF;
+            padding-bottom: calc(82px + 16px);
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        @media (min-width: 744px) {
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .create-a-host{
+            background-color: transparent;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: space-between;
+            max-width: 623px;
+            overflow: visible;
+            scrollbar-width: none;
+
+            .title {
+                background-color: transparent;
+                color: #222222;
+
+                h1 {
+                    font-size: 2.6rem;
+                    line-height: 3rem;
+                    font-weight: 500;
+
+                    @media (min-width: 744px) {
+                        font-size: 3.2rem;
+                        line-height: 3.6rem;
+                        letter-spacing: -0.064rem;
+                        margin-bottom: 32px;
+                    }
+                }
+            }
+
+            .start-new-listing {
+                width: 100%;
+
+                .start-new-listing-content {
+                    padding-bottom: 40px;
+                    width: 100%;
+
+                    @media (min-width: 744px) {
+                        padding-bottom: 64px;
+                    }
+
+                    h2 {
+                        margin-bottom: 16px;
+                        margin-top: 0;
+                        font-size: 2.2rem;
+                        line-height: 2.6rem;
+                        letter-spacing: -0.022;
+                        font-weight: 500;
+                    }
+
+                    .start-new-listing-button {
+                        .start-new-listing-button-wrapper {
+                            width: 100%;
+
+                            .start-new-listing-button-container {
+                                padding-top: 16px;
+                                padding-bottom: 16px;
+                                display: flex;
+                                flex-direction: row;
+
+                                @media (min-width:744px) {
+                                    padding-top: 24px;
+                                    padding-bottom: 24px;
+                                    border-bottom: 1px solid #DDDDDD;
+                                }
+
+                                .start-new-listing-button-icon {
+                                    margin-right: 16px;
+                                }
+
+                                .start-new-listing-button-text {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    flex: 1 1 auto;
+                                    width: 100%;
+
+                                    button {
+                                        background: transparent;
+                                        border: 0;
+                                        cursor: pointer;
+                                        margin: 0;
+                                        padding: 0;
+
+                                        .start-new-listing-button-text-wrapper {
+                                            text-align: left;
+                                            justify-content: space-between;
+                                            display: inline-flex;
+                                            width: 100%;
+                                            align-items: flex-start;
+                                            min-height: 2rem;
+                                            align-items: center;
+
+                                            .start-new-listing-button-text-container {
+                                                cursor: inherit;
+                                                color: #222222;
+                                                font-size: 1.6rem;
+                                                line-height: 2rem;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

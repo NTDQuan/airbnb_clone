@@ -1,0 +1,13 @@
+.button {
+    position: relative;
+    border-radius: 50%;
+    border: none;
+    padding: 1.4rem;
+    background-color: #F7F7F7;
+    cursor: pointer;
+
+    &.outline {
+        background-color: transparent;
+        border: 1px solid #DDDDDD;
+    }
+}
