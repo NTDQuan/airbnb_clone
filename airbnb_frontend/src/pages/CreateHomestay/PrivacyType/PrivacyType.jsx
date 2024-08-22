@@ -1,23 +1,23 @@
 import React from 'react'
 import classNames from 'classnames/bind'
-import styles from './Structure.module.scss'
+import styles from './PrivacyType.module.scss'
 import Container from '../../Container/Container'
+import CreateHomestayPrivacyType from '../../../components/CreateHomestayPrivacyType/CreateHomestayPrivacyType'
 import CreateHomestayFooter from '../../../components/Footer/CreateHomestayFooter/CreateHomestayFooter'
-import CreateHomestayCategory from '../../../components/CreateHomestayCategory/CreateHomestayCategory'
 
 const cx = classNames.bind(styles)
 
-const Structure = () => {
+const PrivacyType = () => {
   return (
-    <div className={cx('wrapper')}>
+    <div className={classNames(cx('wrapper'))}>
       <div className={cx('container')}>
         <Container>
           <div className={cx('contain')}>
             <div className={cx('title')}>
-              <h1>Which of these best describes your place?</h1>
+              <h1>What type of place will guests have?</h1>
             </div>
             <div>
-              <CreateHomestayCategory/>
+              <CreateHomestayPrivacyType/>
             </div>
           </div>
         </Container>
@@ -27,4 +27,4 @@ const Structure = () => {
   )
 }
 
-export default Structure
+export default PrivacyType

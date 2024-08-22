@@ -44,7 +44,7 @@ public class HomestayController {
 	@PostMapping("/")
 	public ResponseEntity<HomestayListResponseDTO> addNewHomestay(@RequestBody HomestayRequest homestayRequest) {
 		User currentUser = jwtService.getSession();
-		Homestay savedHomestay = homestayService.saveHomestay(homestayRequest, currentUser);
+		Homestay savedHomestay = homestayService.createHomestay(homestayRequest, currentUser);
 		HomestayListResponseDTO homestayDTO = homestayService.convertToResponseDTO(savedHomestay);
 		return ResponseEntity.ok(homestayDTO);
 	}

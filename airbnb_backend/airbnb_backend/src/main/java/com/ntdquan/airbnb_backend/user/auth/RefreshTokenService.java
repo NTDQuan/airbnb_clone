@@ -41,7 +41,7 @@ public class RefreshTokenService {
 		refreshToken.setUser(userRepository.findByEmail(email).get());
 		refreshToken.setToken(UUID.randomUUID().toString());
 		logger.info("Create new token: {}", refreshToken.getToken());
-		refreshToken.setExpiryDate(Instant.now().plusMillis(600000));
+		refreshToken.setExpiryDate(Instant.now().plusMillis(5184000));
 		return refreshTokenRepository.save(refreshToken);
 	}
 	

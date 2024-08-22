@@ -43,12 +43,22 @@ public class HomestayService {
         homestay.setAddress(homestayRequest.getAddress());
         homestay.setLatitude(homestayRequest.getLatitude());
         homestay.setGeometry(homestayRequest.getGeometry());
-        homestay.setWardID(homestayRequest.getWardID());
-        homestay.setDistrictID(homestayRequest.getDistrictID());
-        homestay.setCityID(homestayRequest.getCityID());
-        homestay.setProvinceID(homestayRequest.getProvinceID());
+        homestay.setStreet(homestayRequest.getStreet());
+        homestay.setCountry(homestayRequest.getCountry());
+        homestay.setCity(homestayRequest.getCity());
+        homestay.setProvince(homestayRequest.getProvince());
         homestay.setMaxGuests(homestayRequest.getMaxGuests());
+        homestay.setBedRoomNum(homestayRequest.getBedRoomNum());
+        homestay.setBedNum(homestayRequest.getBedNum());
+        homestay.setBathRoomNum(homestayRequest.getBathRoomNum());
         homestay.setAmenityList(amenities);
+        homestayRepository.save(homestay);
+		return homestay;
+	}
+	
+	public Homestay createHomestay(HomestayRequest homestayRequest, User currentUser) {
+		Homestay homestay = new Homestay();
+        homestay.setHostID(currentUser);
         homestayRepository.save(homestay);
 		return homestay;
 	}

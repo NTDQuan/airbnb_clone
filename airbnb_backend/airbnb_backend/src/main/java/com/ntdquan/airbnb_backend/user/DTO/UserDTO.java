@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.user.DTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.ntdquan.airbnb_backend.user.model.User;
@@ -11,8 +12,8 @@ public class UserDTO {
     private String name;
     private String address;
     private String phoneNumber;
-    private Date createAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     
 	public UserDTO() {
 		super();
@@ -25,7 +26,7 @@ public class UserDTO {
         this.name = user.getName();
         this.address = user.getAddress();
         this.phoneNumber = user.getPhoneNumber();
-        this.createAt = user.getCreateAt();
+        this.createdAt = user.getCreatedAt();
         this.updatedAt = user.getUpdatedAt();
 	}
 
@@ -76,22 +77,5 @@ public class UserDTO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-    
     
 }

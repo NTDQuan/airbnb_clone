@@ -1,0 +1,14 @@
+.wrapper {
+    margin-top: 32px;
+    width: 650px;
+
+    @media (min-width: 744px) {
+        margin-top: 48px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}

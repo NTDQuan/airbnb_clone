@@ -13,6 +13,9 @@ import BecomeAHostLayout from './pages/Layout/BecomeAHostLayout/BecomeAHostLayou
 import fetchUserInfo from './actions/fetchUserInfo';
 import Overview from './pages/CreateHomestay/Overview/Overview';
 import Structure from './pages/CreateHomestay/Structure/Structure';
+import PrivacyType from './pages/CreateHomestay/PrivacyType/PrivacyType';
+import Location from './pages/CreateHomestay/Location/Location';
+import FloorPlan from './pages/CreateHomestay/FloorPlan/FloorPlan';
 
 function App() {
     const authUser = useUserData();
@@ -78,6 +81,9 @@ function App() {
                             path=":id"          
                         >
                             <Route path='structure' element={<Structure/>}/>
+                            <Route path='privacy-type' element={<PrivacyType/>}/>
+                            <Route path='location' element={<Location/>}/>
+                            <Route path='floor-plan' element={<FloorPlan/>}/>
                         </Route>
                     </Route>
                 </Routes>

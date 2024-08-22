@@ -1,0 +1,14 @@
+.wrapper {
+    padding-bottom: 12px;
+    padding-top: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    @media (min-width: 744px) {
+        padding-bottom: 40px;
+        flex-direction: row;
+        max-width: 700px;
+        gap: 16px;
+    }
+}

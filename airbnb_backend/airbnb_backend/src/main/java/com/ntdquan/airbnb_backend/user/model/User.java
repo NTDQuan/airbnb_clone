@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.user.model;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -8,6 +9,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +20,7 @@ import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +31,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "user")
+@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,17 +48,19 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy="hostID")
 	private Set<Homestay> homestayList;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createAt;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+    
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 	
 	public User() {	
 	}
 
 	public User(Long id, String email, String image, String password, String name, String address, String phoneNumber,
-			Set<Homestay> homestayList ,Date createAt, Date updatedAt) {
+			Set<Homestay> homestayList) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -62,8 +70,6 @@ public class User implements UserDetails {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.homestayList = homestayList;
-		this.createAt = createAt;
-		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -113,23 +119,23 @@ public class User implements UserDetails {
 	public void setHomestayList(Set<Homestay> homestayList) {
 		this.homestayList = homestayList;
 	}
-
-	public Date getCreateAt() {
-		return createAt;
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -179,7 +185,7 @@ public class User implements UserDetails {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, createAt, email, id, image, name, password, phoneNumber, updatedAt);
+		return Objects.hash(address, createdAt, email, homestayList, id, image, name, password, phoneNumber, updatedAt);
 	}
 
 	@Override
@@ -191,17 +197,20 @@ public class User implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(address, other.address) && Objects.equals(createAt, other.createAt)
-				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
-				&& Objects.equals(image, other.image) && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && Objects.equals(phoneNumber, other.phoneNumber);
+		return Objects.equals(address, other.address) && Objects.equals(createdAt, other.createdAt)
+				&& Objects.equals(email, other.email) && Objects.equals(homestayList, other.homestayList)
+				&& Objects.equals(id, other.id) && Objects.equals(image, other.image)
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
+				&& Objects.equals(phoneNumber, other.phoneNumber) && Objects.equals(updatedAt, other.updatedAt);
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", image=" + image + ", password=" + password + ", name=" + name
-				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", publicId=" + ", createAt="
-				+ createAt + ", updatedAt=" + updatedAt + "]";
-	}	
+				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", homestayList=" + homestayList
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+
+
 	
 }

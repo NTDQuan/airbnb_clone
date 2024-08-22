@@ -3,10 +3,13 @@ import classNames from 'classnames/bind'
 import styles from './BecomeAHost.module.scss'
 import { BsBuildingAdd } from "react-icons/bs";
 import { TbMathGreater } from "react-icons/tb";
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const BecomeAHost = ({ currentUser }) => {
+  const navigate = useNavigate();
+  
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -23,7 +26,7 @@ const BecomeAHost = ({ currentUser }) => {
                     <div className={cx('start-new-listing-button-container')}>
                       <BsBuildingAdd className={cx('start-new-listing-button-icon')} size={32}/>
                       <div className={cx('start-new-listing-button-text')}>
-                        <button>
+                        <button onClick={() => navigate('/become-a-host/overview')}>
                           <span className={cx('start-new-listing-button-text-wrapper')}>
                             <div className={cx('start-new-listing-button-text-container')}>
                               Create a new listing

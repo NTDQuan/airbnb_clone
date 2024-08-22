@@ -1,11 +1,18 @@
 package com.ntdquan.airbnb_backend.Homestay.Model;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.ntdquan.airbnb_backend.Amenity.Model.Amenity;
 import com.ntdquan.airbnb_backend.user.model.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +24,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Homestay")
+@EntityListeners(AuditingEntityListener.class)
 public class Homestay {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +39,14 @@ public class Homestay {
 	private Double latitude;
 	private Double longtitude;
 	private String geometry;
-	private Long wardID;
-	private Long districtID;
-	private Long cityID;
-	private Long provinceID;
+	private String street;
+	private String city;
+	private String province;
+	private String country;
 	private int maxGuests;
+	private int bedRoomNum;
+	private int bedNum;
+	private int bathRoomNum;
 	
 	@ManyToMany
 	@JoinTable(
@@ -45,13 +56,22 @@ public class Homestay {
 	)
 	private List<Amenity> amenityList;
 	
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+    
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+	
 	public Homestay() {
 		
 	}
 
 	public Homestay(Long id, User hostID, String name, String description, String address, Double latitude,
-			Double longtitude, String geometry, Long wardID, Long districtID, Long cityID, Long provinceID,
-			int maxGuests, List<Amenity> amenityList) {
+			Double longtitude, String geometry, String street, String city, String province, String country,
+			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Amenity> amenityList,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.hostID = hostID;
@@ -61,12 +81,17 @@ public class Homestay {
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		this.geometry = geometry;
-		this.wardID = wardID;
-		this.districtID = districtID;
-		this.cityID = cityID;
-		this.provinceID = provinceID;
+		this.street = street;
+		this.city = city;
+		this.province = province;
+		this.country = country;
 		this.maxGuests = maxGuests;
+		this.bedRoomNum = bedRoomNum;
+		this.bedNum = bedNum;
+		this.bathRoomNum = bathRoomNum;
 		this.amenityList = amenityList;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -133,36 +158,36 @@ public class Homestay {
 		this.geometry = geometry;
 	}
 
-	public Long getWardID() {
-		return wardID;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setWardID(Long wardID) {
-		this.wardID = wardID;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
-	public Long getDistrictID() {
-		return districtID;
+	public String getCity() {
+		return city;
 	}
 
-	public void setDistrictID(Long districtID) {
-		this.districtID = districtID;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public Long getCityID() {
-		return cityID;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setCityID(Long cityID) {
-		this.cityID = cityID;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public Long getProvinceID() {
-		return provinceID;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setProvinceID(Long provinceID) {
-		this.provinceID = provinceID;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public int getMaxGuests() {
@@ -173,12 +198,52 @@ public class Homestay {
 		this.maxGuests = maxGuests;
 	}
 
+	public int getBedRoomNum() {
+		return bedRoomNum;
+	}
+
+	public void setBedRoomNum(int bedRoomNum) {
+		this.bedRoomNum = bedRoomNum;
+	}
+
+	public int getBedNum() {
+		return bedNum;
+	}
+
+	public void setBedNum(int bedNum) {
+		this.bedNum = bedNum;
+	}
+
+	public int getBathRoomNum() {
+		return bathRoomNum;
+	}
+
+	public void setBathRoomNum(int bathRoomNum) {
+		this.bathRoomNum = bathRoomNum;
+	}
+
 	public List<Amenity> getAmenityList() {
 		return amenityList;
 	}
 
 	public void setAmenityList(List<Amenity> amenityList) {
 		this.amenityList = amenityList;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	

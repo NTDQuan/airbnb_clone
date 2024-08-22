@@ -5,14 +5,14 @@ import styles from './Heading.module.scss'
 
 const cx = classNames.bind(styles)
 
-const Heading = ({title, subtitle, center}) => {
+const Heading = ({title, subtitle, center, big}) => {
   return (
-    <div className={cx('wrapper', {center})}>
+    <div className={cx('wrapper', {center, big})}>
         <div className={cx('title')}>
             {title}
         </div>
         <div className={cx('subtitle')}>
-
+            {subtitle}
         </div>
     </div>
   )

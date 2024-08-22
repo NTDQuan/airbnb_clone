@@ -14,7 +14,6 @@ const BecomeAHostLayout = () => {
       <div className={cx('content')}>
         <Outlet/>
       </div>
-      <CreateHomestayFooter/>
     </div>
   )
 }

@@ -16,12 +16,12 @@ const homestayService = {
     addNewHomestay: async (homestayRequest) => {
         try {
             const response = await axios.post(API_BASE_URL + "/", homestayRequest, { withCredentials: true });
-            return response.data;
+            return response.data.id;
         } catch (error) {
             console.error('Error adding new homestay:', error);
             throw error;
         }
-    }
+    },
 };
 
 export default homestayService;
