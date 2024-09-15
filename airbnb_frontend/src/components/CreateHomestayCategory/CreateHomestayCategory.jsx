@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './CreateHomestayCategory.module.scss'
 
@@ -7,7 +7,14 @@ import CategoryItem from './CategoryItem/CategoryItem'
 
 const cx = classNames.bind(styles)
 
-const CreateHomestayCategory = () => {
+const CreateHomestayCategory = ({ onSelectCategory }) => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleSelectCategory = (label) => {
+    setSelectedCategory(label);
+    onSelectCategory(label);
+  };
+
   return (
     <div className={cx('wrapper')}>
       {category && category.map((item) => (
@@ -15,6 +22,8 @@ const CreateHomestayCategory = () => {
           key={item.label}
           label={item.label}
           icon={item.icon}
+          isSelected={selectedCategory === item.label}
+          onSelect={handleSelectCategory}
         />
       ))}
     </div>

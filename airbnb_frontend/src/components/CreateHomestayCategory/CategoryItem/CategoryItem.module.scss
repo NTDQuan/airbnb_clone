@@ -30,6 +30,11 @@
             }
         }
 
+        &.selected {
+            border-color: transparent;
+            box-shadow: 0 0 0 2px #000000;
+        }
+
         .title {
             text-align: left;
             display: flex;

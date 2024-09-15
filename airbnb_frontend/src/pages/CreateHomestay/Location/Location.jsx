@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { useForm } from "react-hook-form"
+import React, { useMemo, useEffect } from 'react'
+import { useForm, SubmitHandler, Controller, useWatch } from "react-hook-form"
 import classNames from 'classnames/bind'
 import styles from './Location.module.scss'
 import Container from '../../Container/Container'
@@ -7,7 +7,7 @@ import Heading from '../../../components/Heading/Heading'
 import Input from '../../../components/Input/Input'
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
-import CreateHomestayFooter from '../../../components/Footer/CreateHomestayFooter/CreateHomestayFooter'
+import { useOutletContext } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
@@ -20,20 +20,20 @@ const selectorStyles = {
     border: '2px solid #d1d5db',
     borderRadius: '0.375rem',
     outline: 'none',
-    boxShadow: 'none', // Remove the default box shadow
+    boxShadow: 'none',
     '&:hover': {
-      border: '2px solid #d1d5db', // Ensures the border stays the same on hover
+      border: '2px solid #d1d5db',
     },
   }),
 }
 
 const Location = () => {
-  const options = useMemo(() => countryList().getData(), [])
-
+  const options = useMemo(() => countryList().getData(), []);
+  const { handleChildData } = useOutletContext();
 
   const {
     register,
-    handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -42,8 +42,18 @@ const Location = () => {
       province: '',
       country: ''
     }
-  });
+  }); 
 
+  const formData = useWatch({
+    control
+  })
+
+  useEffect(() => {
+    // Call handleChildData only if formData has actual data
+    if (formData.street || formData.city || formData.province || formData.country) {
+      handleChildData(formData);
+    }
+  }, [formData, handleChildData]);
 
   return (
     <div className={cx('wrapper')}>
@@ -51,49 +61,49 @@ const Location = () => {
         <Container>
           <div className={cx('contain')}>
             <div className={cx('title')}>
-              <Heading title='Where is your place located?' subtitle='Your address is only shared with guests after they’ve made a reservation.' big={true}/>
+              <Heading title='Where is your place located?' subtitle='Your address is only shared with guests after they’ve made a reservation.' big={true} />
             </div>
-            <div className={cx('input-container')}>
-              <Select
-                id="country"
-                options={options} 
-                register={register}
-                errors={errors}
-                styles={selectorStyles}
+            <form className={cx('input-container')}>
+              <Controller
+                name="country"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={options}
+                    styles={selectorStyles}
+                  />
+                )}
               />
-              <Input 
-                id="street" 
-                label="Street address" 
-                register={register}
-                errors={errors}
-              />
-              <Input 
-                id="city" 
-                label="City/district/town" 
-                register={register}
-                errors={errors}
-              />
-              <Input 
-                id="province" 
-                label="Municipality/province" 
+              {errors.country && <p className={cx('error')}>Country is required</p>}
+              <Input
+                id="street"
+                label="Street address"
                 register={register}
                 errors={errors}
               />
-            </div>
+              <Input
+                id="city"
+                label="City/district/town"
+                register={register}
+                errors={errors}
+              />
+              <Input
+                id="province"
+                label="Municipality/province"
+                register={register}
+                errors={errors}
+              />
+              <button type="submit" style={{ display: 'none' }}></button>
+            </form>
             <div className={cx('map-container')}>
-              <div className={cx('map-contain')}>
-
-              </div>
-            </div>
-            <div className='form'>
-
+              <div className={cx('map-contain')}></div>
             </div>
           </div>
         </Container>
-        <CreateHomestayFooter title='Get started' available={true}/>
       </div>
     </div>
-  )
+  );
 }
 
 export default Location

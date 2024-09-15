@@ -1,31 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Overview.module.scss'
 
 import Container from '../../Container/Container'
 import homestayService from '../../../service/ListingService'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 import CreateHomestayFooter from '../../../components/Footer/CreateHomestayFooter/CreateHomestayFooter'
 
 const cx = classNames.bind(styles)
 
 const Overview = () => {
-  const [homestayId, setHomestayId] = useState(null);
-  const navigate = useNavigate();
-
-  const handleCreateHomestay = async () => {
-    try {
-      console.log('creatre homestay');
-      const newHomestayId = await homestayService.addNewHomestay({
-
-      });
-      setHomestayId(newHomestayId);
-      navigate(`/become-a-host/${newHomestayId}/structure`);
-    } catch (error) {
-      console.error('Error creating homestay', error);
-    }
-  }
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -59,7 +43,6 @@ const Overview = () => {
             </div>
           </div>
         </Container>
-        <CreateHomestayFooter title='Get started' onClick={handleCreateHomestay}/>
       </div>
     </div>
   )

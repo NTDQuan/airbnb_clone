@@ -4,10 +4,14 @@ import styles from './CategoryItem.module.scss'
 
 const cx = classNames.bind(styles)
 
-const CategoryItem = ({ label, icon : Icon }) => {
+const CategoryItem = ({ label, icon : Icon, onSelect, isSelected }) => {
+  const handleClick = () => {
+    onSelect(label);
+  }
+
   return (
     <div className={cx('wrapper')}>
-      <button className={cx('category-button')}>
+      <button className={cx('category-button', { 'selected': isSelected })} onClick={handleClick}>
         <div className={cx('icon')}>
           <Icon size={40}/>
         </div>

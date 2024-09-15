@@ -10,32 +10,36 @@ public class HomestayRequest {
 	private String description;
 	private String address;
 	private Double latitude;
-	private Double longtitude;
+	private Double longitude;
 	private String geometry;
 	private String street;
 	private String country;
 	private String city;
 	private String province;
-	private int maxGuests;
-	private int bedRoomNum;
-	private int bedNum;
-	private int bathRoomNum;
+    private Integer maxGuests;
+    private Integer bedRoomNum;
+    private Integer bedNum;       
+    private Integer bathRoomNum;    
 	private List<Long> amenityIds;
+	private String type;
+	private Boolean reservation;
+	private Long defaultPrice;
 	
 	public HomestayRequest() {
 		super();
 	}
 
 	public HomestayRequest(User hostID, String name, String description, String address, Double latitude,
-			Double longtitude, String geometry, String street, String country, String city, String province,
-			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Long> amenityIds) {
+			Double longitude, String geometry, String street, String country, String city, String province,
+			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Long> amenityIds, String type,
+			Long defaultPrice, Boolean reservation) {
 		super();
 		this.hostID = hostID;
 		this.name = name;
 		this.description = description;
 		this.address = address;
 		this.latitude = latitude;
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 		this.geometry = geometry;
 		this.street = street;
 		this.country = country;
@@ -46,6 +50,9 @@ public class HomestayRequest {
 		this.bedNum = bedNum;
 		this.bathRoomNum = bathRoomNum;
 		this.amenityIds = amenityIds;
+		this.type = type;
+		this.reservation = reservation;
+		this.defaultPrice = defaultPrice;
 	}
 
 	public User getHostID() {
@@ -88,12 +95,12 @@ public class HomestayRequest {
 		this.latitude = latitude;
 	}
 
-	public Double getLongtitude() {
-		return longtitude;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setLongtitude(Double longtitude) {
-		this.longtitude = longtitude;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getGeometry() {
@@ -136,35 +143,35 @@ public class HomestayRequest {
 		this.province = province;
 	}
 
-	public int getMaxGuests() {
+	public Integer getMaxGuests() {
 		return maxGuests;
 	}
 
-	public void setMaxGuests(int maxGuests) {
+	public void setMaxGuests(Integer maxGuests) {
 		this.maxGuests = maxGuests;
 	}
 
-	public int getBedRoomNum() {
+	public Integer getBedRoomNum() {
 		return bedRoomNum;
 	}
 
-	public void setBedRoomNum(int bedRoomNum) {
+	public void setBedRoomNum(Integer bedRoomNum) {
 		this.bedRoomNum = bedRoomNum;
 	}
 
-	public int getBedNum() {
+	public Integer getBedNum() {
 		return bedNum;
 	}
 
-	public void setBedNum(int bedNum) {
+	public void setBedNum(Integer bedNum) {
 		this.bedNum = bedNum;
 	}
 
-	public int getBathRoomNum() {
+	public Integer getBathRoomNum() {
 		return bathRoomNum;
 	}
 
-	public void setBathRoomNum(int bathRoomNum) {
+	public void setBathRoomNum(Integer bathRoomNum) {
 		this.bathRoomNum = bathRoomNum;
 	}
 
@@ -175,5 +182,31 @@ public class HomestayRequest {
 	public void setAmenityIds(List<Long> amenityIds) {
 		this.amenityIds = amenityIds;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Boolean isReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Boolean reservation) {
+		this.reservation = reservation;
+	}
+
+	public Long getDefaultPrice() {
+		return defaultPrice;
+	}
+
+	public void setDefaultPrice(Long defaultPrice) {
+		this.defaultPrice = defaultPrice;
+	}
+
+	
 	
 }

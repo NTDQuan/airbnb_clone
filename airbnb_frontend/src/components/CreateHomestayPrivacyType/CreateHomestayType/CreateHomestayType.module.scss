@@ -28,6 +28,11 @@
             box-shadow: 0 0 0 2px #222222 !important;
         }
 
+        &.selected {
+            background-color: rgb(247, 247, 247) !important;
+            box-shadow: 0 0 0 2px #222222 !important;
+        }
+
         .text-container {
             text-align: left;
             width: 100%;

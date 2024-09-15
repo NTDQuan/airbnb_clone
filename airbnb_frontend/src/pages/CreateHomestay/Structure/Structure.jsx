@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Structure.module.scss'
+import { useOutletContext } from 'react-router-dom';
 import Container from '../../Container/Container'
-import CreateHomestayFooter from '../../../components/Footer/CreateHomestayFooter/CreateHomestayFooter'
 import CreateHomestayCategory from '../../../components/CreateHomestayCategory/CreateHomestayCategory'
 
 const cx = classNames.bind(styles)
 
 const Structure = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { handleChildData } = useOutletContext();
+
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+    handleChildData({ category });
+    console.log('Selected category:', category);
+  };
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
@@ -17,11 +26,10 @@ const Structure = () => {
               <h1>Which of these best describes your place?</h1>
             </div>
             <div>
-              <CreateHomestayCategory/>
+              <CreateHomestayCategory onSelectCategory={handleSelectCategory}/>
             </div>
           </div>
         </Container>
-        <CreateHomestayFooter title='Get started' available={true}/>
       </div>
     </div>
   )

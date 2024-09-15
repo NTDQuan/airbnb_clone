@@ -21,7 +21,6 @@ const PrivacyType = () => {
             </div>
           </div>
         </Container>
-        <CreateHomestayFooter title='Get started' available={true}/>
       </div>
     </div>
   )

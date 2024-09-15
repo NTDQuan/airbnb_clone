@@ -4,10 +4,10 @@ import styles from './CreateHomestayType.module.scss'
 
 const cx = classNames.bind(styles)
 
-const CreateHomestayType = ({ label, description, icon:Icon}) => {
+const CreateHomestayType = ({ value, label, description, icon:Icon, onClick, isSelected }) => {
   return (
     <div className={cx('wrapper')}>
-      <button className={cx('button')}>
+      <button className={cx('button', { selected: isSelected })} onClick={onClick}>
         <div className={cx('text-container')}>
           <h2>{label}</h2>
           <div className={cx('description')}>{description}</div>

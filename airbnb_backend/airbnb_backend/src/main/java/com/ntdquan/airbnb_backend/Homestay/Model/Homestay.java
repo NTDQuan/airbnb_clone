@@ -37,7 +37,7 @@ public class Homestay {
 	private String description;
 	private String address;
 	private Double latitude;
-	private Double longtitude;
+	private Double longitude;
 	private String geometry;
 	private String street;
 	private String city;
@@ -47,6 +47,9 @@ public class Homestay {
 	private int bedRoomNum;
 	private int bedNum;
 	private int bathRoomNum;
+	private String type;
+	private boolean reservation;
+	private long defaultPrice;
 	
 	@ManyToMany
 	@JoinTable(
@@ -69,9 +72,9 @@ public class Homestay {
 	}
 
 	public Homestay(Long id, User hostID, String name, String description, String address, Double latitude,
-			Double longtitude, String geometry, String street, String city, String province, String country,
-			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Amenity> amenityList,
-			LocalDateTime createdAt, LocalDateTime updatedAt) {
+			Double longitude, String geometry, String street, String city, String province, String country,
+			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type, boolean reservation,
+			long defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.hostID = hostID;
@@ -79,7 +82,7 @@ public class Homestay {
 		this.description = description;
 		this.address = address;
 		this.latitude = latitude;
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 		this.geometry = geometry;
 		this.street = street;
 		this.city = city;
@@ -89,6 +92,9 @@ public class Homestay {
 		this.bedRoomNum = bedRoomNum;
 		this.bedNum = bedNum;
 		this.bathRoomNum = bathRoomNum;
+		this.type = type;
+		this.reservation = reservation;
+		this.defaultPrice = defaultPrice;
 		this.amenityList = amenityList;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -142,12 +148,12 @@ public class Homestay {
 		this.latitude = latitude;
 	}
 
-	public Double getLongtitude() {
-		return longtitude;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setLongtitude(Double longtitude) {
-		this.longtitude = longtitude;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getGeometry() {
@@ -222,6 +228,30 @@ public class Homestay {
 		this.bathRoomNum = bathRoomNum;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public boolean isReservation() {
+		return reservation;
+	}
+
+	public void setReservation(boolean reservation) {
+		this.reservation = reservation;
+	}
+
+	public long getDefaultPrice() {
+		return defaultPrice;
+	}
+
+	public void setDefaultPrice(long defaultPrice) {
+		this.defaultPrice = defaultPrice;
+	}
+
 	public List<Amenity> getAmenityList() {
 		return amenityList;
 	}
@@ -245,7 +275,5 @@ public class Homestay {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 	
-
 }

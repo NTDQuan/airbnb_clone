@@ -22,6 +22,26 @@ const homestayService = {
             throw error;
         }
     },
+
+    editHomestayDetail: async (id, homestayRequest) => {
+        try {
+            const response = await axios.patch(API_BASE_URL + "/" + id, homestayRequest, { withCredentials: true });
+            return response.data;
+        } catch (error) {
+            console.error('Error editing homestay detail:', error);
+            throw error;
+        }
+    },
+
+    getHomeStayCardById: async (id) => {
+        try {
+            const response = await axios.get(API_BASE_URL + "/preview/" + id, { withCredentials: true });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching homestay card:', error);
+            throw error;
+        }
+    }
 };
 
 export default homestayService;

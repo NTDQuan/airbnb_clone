@@ -9,9 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStyle>
-      <Router>
         <App />
-      </Router>
     </GlobalStyle>
   </React.StrictMode>
 );

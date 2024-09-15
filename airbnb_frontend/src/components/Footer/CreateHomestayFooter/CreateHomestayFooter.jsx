@@ -5,7 +5,7 @@ import CreateHomestayButton from '../../Button/CreateHomestayButton/CreateHomest
 
 const cx = classNames.bind(styles);
 
-const CreateHomestayFooter = ({ title, onClick }) => {
+const CreateHomestayFooter = ({ title, onClick, path }) => {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
