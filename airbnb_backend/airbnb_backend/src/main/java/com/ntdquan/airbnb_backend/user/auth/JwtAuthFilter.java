@@ -2,6 +2,8 @@ package com.ntdquan.airbnb_backend.user.auth;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +23,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+	Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);
+	
 	private JwtService jwtService;
 	private UserService userUserDetailService;
 	
@@ -35,6 +39,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		Cookie[] cookies = request.getCookies();
 		String token = null;
 		String username = null;
+		
+		logger.debug("Incoming request to: {}", request.getRequestURI());
 		if (cookies != null) {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("accessToken")) {
@@ -44,15 +50,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		}
 		
 		if (token != null) {
+			logger.debug("Extracted token: {}", token);
 			username = jwtService.extractUsername(token);
+			logger.debug("Extracted username from token: {}", username);
+		} else {
+			logger.debug("No access token found in cookies.");
 		}
 		
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			logger.debug("Username not authenticated, proceeding with authentication.");
 			UserDetails userDetails = userUserDetailService.loadUserByUsername(username);
 			if (jwtService.validateToken(token)) {
+				logger.debug("Token is valid, setting authentication for user: {}", username);
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authToken);
+			} else {
+				logger.debug("Token is invalid.");
 			}
 		}
 		filterChain.doFilter(request, response);

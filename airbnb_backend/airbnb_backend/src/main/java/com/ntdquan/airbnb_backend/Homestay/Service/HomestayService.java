@@ -15,6 +15,7 @@ import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayRequest;
 import com.ntdquan.airbnb_backend.Homestay.Mapper.Mapper;
 import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
 import com.ntdquan.airbnb_backend.Homestay.Repository.HomestayRepository;
+import com.ntdquan.airbnb_backend.constant.HomestayStatus;
 import com.ntdquan.airbnb_backend.exception.ResourceNotFoundException;
 import com.ntdquan.airbnb_backend.user.model.User;
 
@@ -76,6 +77,7 @@ public class HomestayService {
 	public Homestay createHomestay(HomestayRequest homestayRequest, User currentUser) {
 		Homestay homestay = new Homestay();
         homestay.setHostID(currentUser);
+        
         homestayRepository.save(homestay);
 		return homestay;
 	}

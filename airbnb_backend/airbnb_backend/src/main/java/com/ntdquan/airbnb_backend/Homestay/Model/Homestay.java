@@ -8,8 +8,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.ntdquan.airbnb_backend.Amenity.Model.Amenity;
+import com.ntdquan.airbnb_backend.Booking.model.Booking;
 import com.ntdquan.airbnb_backend.user.model.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -20,6 +22,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -43,6 +46,10 @@ public class Homestay {
 	private String city;
 	private String province;
 	private String country;
+	
+	@ManyToOne
+	@JoinColumn(name = "homestay_status_id")
+	private HomestayStatus status;
 	private int maxGuests;
 	private int bedRoomNum;
 	private int bedNum;
@@ -59,6 +66,9 @@ public class Homestay {
 	)
 	private List<Amenity> amenityList;
 	
+	@OneToMany(mappedBy = "homestay", cascade = CascadeType.ALL)
+	private List<Booking> bookings;
+	
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -73,8 +83,9 @@ public class Homestay {
 
 	public Homestay(Long id, User hostID, String name, String description, String address, Double latitude,
 			Double longitude, String geometry, String street, String city, String province, String country,
-			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type, boolean reservation,
-			long defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt, LocalDateTime updatedAt) {
+			HomestayStatus status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type,
+			boolean reservation, long defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.hostID = hostID;
@@ -88,6 +99,7 @@ public class Homestay {
 		this.city = city;
 		this.province = province;
 		this.country = country;
+		this.status = status;
 		this.maxGuests = maxGuests;
 		this.bedRoomNum = bedRoomNum;
 		this.bedNum = bedNum;
@@ -196,6 +208,14 @@ public class Homestay {
 		this.country = country;
 	}
 
+	public HomestayStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(HomestayStatus status) {
+		this.status = status;
+	}
+
 	public int getMaxGuests() {
 		return maxGuests;
 	}
@@ -275,5 +295,4 @@ public class Homestay {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 }

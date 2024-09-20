@@ -1,40 +1,38 @@
-package com.ntdquan.airbnb_backend.Booking.Model;
+package com.ntdquan.airbnb_backend.Booking.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
-public class HomestayAvailabilityId implements Serializable {
+@Embeddable
+public class HomestayAvailabilityId {
+	@Column(name = "homestay_id")
 	private Long homestayId;
-	private LocalDate date;
 	
-	public HomestayAvailabilityId() {
-		super();
-	}
-
+	@Column(name = "date")
+	private LocalDate date;
 	public HomestayAvailabilityId(Long homestayId, LocalDate date) {
 		super();
 		this.homestayId = homestayId;
 		this.date = date;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, homestayId);
+	
+	public HomestayAvailabilityId() {
+		super();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		HomestayAvailabilityId other = (HomestayAvailabilityId) obj;
-		return Objects.equals(date, other.date) && Objects.equals(homestayId, other.homestayId);
+	public Long getHomestayId() {
+		return homestayId;
+	}
+	public void setHomestayId(Long homestayId) {
+		this.homestayId = homestayId;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 	
 	

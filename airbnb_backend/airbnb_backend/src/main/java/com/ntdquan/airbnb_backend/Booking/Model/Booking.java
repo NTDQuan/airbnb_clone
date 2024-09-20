@@ -1,65 +1,57 @@
-package com.ntdquan.airbnb_backend.Booking.Model;
+package com.ntdquan.airbnb_backend.Booking.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
 import com.ntdquan.airbnb_backend.user.model.User;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "booking")
-@EntityListeners(AuditingEntityListener.class)
 public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User userId;
-
-    @ManyToOne
-    @JoinColumn(name = "homestay_id")
-    private Homestay homestayId;
+	
+	@ManyToOne
+	@JoinColumn(name= "homestay_id")
+	private Homestay homestay;
+	
+	@ManyToOne
+	@JoinColumn(name= "user_id")
+	private User user;
+	private Integer bookingStatus;
 	private LocalDate checkinDate;
 	private LocalDate checkoutDate;
-	private int guests;
-	private Integer status;
-	private BigDecimal subtotal;
-	private BigDecimal discount;
-	private BigDecimal totalAmount;
-	private String note;
-	private String requestId;
+	private BigDecimal nightlyPrice;
+	private BigDecimal serviceFee;
+	private BigDecimal cleaningService;
+	private BigDecimal totalPrice;
 	
 	public Booking() {
 		super();
 	}
 
-	public Booking(User userId, Homestay homestayId, LocalDate checkinDate, LocalDate checkoutDate,
-			int guests, Integer status, BigDecimal subtotal, BigDecimal discount, BigDecimal totalAmount, String note,
-			String requestId) {
+	public Booking(Long id, Homestay homestay, User user, Integer bookingStatus, LocalDate checkinDate,
+			LocalDate checkoutDate, BigDecimal nightlyPrice, BigDecimal serviceFee, BigDecimal cleaningService,
+			BigDecimal totalPrice) {
 		super();
-		this.userId = userId;
-		this.homestayId = homestayId;
+		this.id = id;
+		this.homestay = homestay;
+		this.user = user;
+		this.bookingStatus = bookingStatus;
 		this.checkinDate = checkinDate;
 		this.checkoutDate = checkoutDate;
-		this.guests = guests;
-		this.status = status;
-		this.subtotal = subtotal;
-		this.discount = discount;
-		this.totalAmount = totalAmount;
-		this.note = note;
-		this.requestId = requestId;
+		this.nightlyPrice = nightlyPrice;
+		this.serviceFee = serviceFee;
+		this.cleaningService = cleaningService;
+		this.totalPrice = totalPrice;
 	}
 
 	public Long getId() {
@@ -70,20 +62,28 @@ public class Booking {
 		this.id = id;
 	}
 
-	public User getUserId() {
-		return userId;
+	public Homestay getHomestay() {
+		return homestay;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setHomestay(Homestay homestay) {
+		this.homestay = homestay;
 	}
 
-	public Homestay getHomestayId() {
-		return homestayId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setHomestayId(Homestay homestayId) {
-		this.homestayId = homestayId;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(Integer bookingStatus) {
+		this.bookingStatus = bookingStatus;
 	}
 
 	public LocalDate getCheckinDate() {
@@ -102,60 +102,37 @@ public class Booking {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public int getGuests() {
-		return guests;
+	public BigDecimal getNightlyPrice() {
+		return nightlyPrice;
 	}
 
-	public void setGuests(int guests) {
-		this.guests = guests;
+	public void setNightlyPrice(BigDecimal nightly_price) {
+		this.nightlyPrice = nightly_price;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public BigDecimal getServiceFee() {
+		return serviceFee;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setServiceFee(BigDecimal serviceFee) {
+		this.serviceFee = serviceFee;
 	}
 
-	public BigDecimal getSubtotal() {
-		return subtotal;
+	public BigDecimal getCleaningService() {
+		return cleaningService;
 	}
 
-	public void setSubtotal(BigDecimal subtotal) {
-		this.subtotal = subtotal;
+	public void setCleaningService(BigDecimal cleaningService) {
+		this.cleaningService = cleaningService;
 	}
 
-	public BigDecimal getDiscount() {
-		return discount;
+	public BigDecimal getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
 	}
-
-	public BigDecimal getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getRequestId() {
-		return requestId;
-	}
-
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
-
+	
+	
 }
