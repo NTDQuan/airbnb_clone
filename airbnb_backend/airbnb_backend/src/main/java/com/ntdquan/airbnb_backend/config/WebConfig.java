@@ -12,11 +12,7 @@ public class WebConfig {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**")
-					.allowedOrigins("http://localhost:3000/")
-					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-					.allowedHeaders("*")
-					.allowCredentials(true);
+				registry.addMapping("/**"); // Enable CORS for the whole application.
 			}
 		};
 	}

@@ -35,7 +35,7 @@ import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
-public class User implements UserDetails {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -154,40 +154,17 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+	public List<Booking> getBookings() {
+		return bookings;
 	}
-	
-    @Override
-    public String getPassword() {
-        return password;
-    }
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	public String getPassword() {
+		return password;
+	}
 
 	@Override
 	public int hashCode() {

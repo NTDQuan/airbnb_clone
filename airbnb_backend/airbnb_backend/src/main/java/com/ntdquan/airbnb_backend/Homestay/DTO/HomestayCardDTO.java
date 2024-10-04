@@ -1,15 +1,17 @@
 package com.ntdquan.airbnb_backend.Homestay.DTO;
 
+import java.math.BigDecimal;
+
 public class HomestayCardDTO {
 	private Long id;
 	private String name;
-	private Long defaultPrice;
+	private BigDecimal defaultPrice;
 	
 	public HomestayCardDTO() {
 		super();
 	}
 
-	public HomestayCardDTO(Long id, String name, Long defaultPrice) {
+	public HomestayCardDTO(Long id, String name, BigDecimal defaultPrice) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,11 +34,11 @@ public class HomestayCardDTO {
 		this.name = name;
 	}
 
-	public Long getDefaultPrice() {
+	public BigDecimal getDefaultPrice() {
 		return defaultPrice;
 	}
 
-	public void setDefaultPrice(Long defaultPrice) {
+	public void setDefaultPrice(BigDecimal defaultPrice) {
 		this.defaultPrice = defaultPrice;
 	}
 	

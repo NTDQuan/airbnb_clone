@@ -5,30 +5,14 @@ import styles from './Location.module.scss'
 import Container from '../../Container/Container'
 import Heading from '../../../components/Heading/Heading'
 import Input from '../../../components/Input/Input'
-import Select from 'react-select'
-import countryList from 'react-select-country-list'
 import { useOutletContext } from 'react-router-dom';
+import useCountries from '../../../hooks/useCountry';
+import CountrySelect from '../../../components/CountrySelect/CountrySelect'
+import Map from '../../../components/Map/Map'
 
 const cx = classNames.bind(styles)
 
-const selectorStyles = {
-  control: (provided) => ({
-    ...provided,
-    width: '100%',
-    fontWeight: 300,
-    backgroundColor: 'white',
-    border: '2px solid #d1d5db',
-    borderRadius: '0.375rem',
-    outline: 'none',
-    boxShadow: 'none',
-    '&:hover': {
-      border: '2px solid #d1d5db',
-    },
-  }),
-}
-
 const Location = () => {
-  const options = useMemo(() => countryList().getData(), []);
   const { handleChildData } = useOutletContext();
 
   const {
@@ -67,33 +51,36 @@ const Location = () => {
               <Controller
                 name="country"
                 control={control}
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    options={options}
-                    styles={selectorStyles}
+                render={({ field: { onChange, value } }) => (
+                  <CountrySelect
+                    value={value}
+                    onChange={onChange}
                   />
                 )}
               />
               {errors.country && <p className={cx('error')}>Country is required</p>}
               <Input
+                className={cx('input')}
                 id="street"
                 label="Street address"
                 register={register}
                 errors={errors}
               />
               <Input
+                className={cx('input')}
                 id="city"
                 label="City/district/town"
                 register={register}
                 errors={errors}
               />
               <Input
+                className={cx('input')}
                 id="province"
                 label="Municipality/province"
                 register={register}
                 errors={errors}
               />
+              <Map/>
               <button type="submit" style={{ display: 'none' }}></button>
             </form>
             <div className={cx('map-container')}>

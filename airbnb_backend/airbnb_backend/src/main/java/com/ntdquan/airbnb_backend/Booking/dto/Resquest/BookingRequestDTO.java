@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class BookingRequestDTO {
 	private String requestId;
 	private Long userId;
+	private Long homestayId;
 	private LocalDate checkinDate;
 	private LocalDate checkoutDate;
 	private Integer guest;
@@ -17,7 +18,7 @@ public class BookingRequestDTO {
 	}
 
 	public BookingRequestDTO(String requestId, Long userId, LocalDate checkinDate, LocalDate checkoutDate,
-			Integer guest, String note, Integer adultGuests, Integer childGuests) {
+			Integer guest, Long homestayId, String note, Integer adultGuests, Integer childGuests) {
 		super();
 		this.requestId = requestId;
 		this.userId = userId;
@@ -27,6 +28,7 @@ public class BookingRequestDTO {
 		this.note = note;
 		this.adultGuests = adultGuests;
 		this.childGuests = childGuests;
+		this.homestayId = homestayId;
 	}
 
 	public String getRequestId() {
@@ -92,5 +94,14 @@ public class BookingRequestDTO {
 	public void setChildGuests(Integer childGuests) {
 		this.childGuests = childGuests;
 	}
+
+	public Long getHomestayId() {
+		return homestayId;
+	}
+
+	public void setHomestayId(Long homestayId) {
+		this.homestayId = homestayId;
+	}
+	
 	
 }

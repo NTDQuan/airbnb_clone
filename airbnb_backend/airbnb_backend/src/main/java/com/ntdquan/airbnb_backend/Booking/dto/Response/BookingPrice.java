@@ -5,16 +5,18 @@ import java.math.BigDecimal;
 public class BookingPrice {
 	private BigDecimal nightlyPrice;
 	private BigDecimal discount;
+	private BigDecimal serviceFee;
 	private BigDecimal totalPrice;
 	
 	public BookingPrice() {
 		super();
 	}
 
-	public BookingPrice(BigDecimal nightlyPrice, BigDecimal discount, BigDecimal totalPrice) {
+	public BookingPrice(BigDecimal nightlyPrice, BigDecimal discount, BigDecimal serviceFee, BigDecimal totalPrice) {
 		super();
 		this.nightlyPrice = nightlyPrice;
 		this.discount = discount;
+		this.serviceFee = serviceFee;
 		this.totalPrice = totalPrice;
 	}
 
@@ -40,6 +42,14 @@ public class BookingPrice {
 
 	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public BigDecimal getServiceFee() {
+		return serviceFee;
+	}
+
+	public void setServiceFee(BigDecimal serviceFee) {
+		this.serviceFee = serviceFee;
 	}
 	
 	

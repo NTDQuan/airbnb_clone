@@ -25,28 +25,11 @@ import Description from './pages/CreateHomestay/Description/Description';
 import InstantBook from './pages/CreateHomestay/InstantBook/InstantBook';
 import Price from './pages/CreateHomestay/Price/Price';
 import Receipt from './pages/CreateHomestay/Receipt/Receipt';
+import Home from './pages/Home/Home';
 
 function App() {
     const authUser = useUserData();
     const [currentUser, setCurrentUser] = useState(null);
-  
-    useEffect(() => {
-      async function autoLogin() {
-        try {
-          const res = await axios.get('http://localhost:8080/api/auth/auto-login', { withCredentials: true });
-          if (res.status === 200) {
-            authUser.onLogin(await fetchUserInfo());
-            setCurrentUser(authUser.user);
-          } else {
-            handleSignout();
-          }
-        } catch (error) {
-          console.error('Error during auto-login:', error);
-          handleSignout();
-        }
-      }
-      autoLogin();
-    }, []);
   
     useEffect(() => {
       setCurrentUser(authUser.user);
@@ -66,6 +49,9 @@ function App() {
       {
         path: "/",
         element: <DefaultLayout currentUser={currentUser} />,
+        children: [
+          {index: true, element: <Home/>}
+        ]
       },
       {
         path: "/hosting",

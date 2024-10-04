@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.Homestay.DTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.ntdquan.airbnb_backend.user.model.User;
@@ -23,7 +24,7 @@ public class HomestayRequest {
 	private List<Long> amenityIds;
 	private String type;
 	private Boolean reservation;
-	private Long defaultPrice;
+	private BigDecimal defaultPrice;
 	
 	public HomestayRequest() {
 		super();
@@ -32,7 +33,7 @@ public class HomestayRequest {
 	public HomestayRequest(User hostID, String name, String description, String address, Double latitude,
 			Double longitude, String geometry, String street, String country, String city, String province,
 			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Long> amenityIds, String type,
-			Long defaultPrice, Boolean reservation) {
+			BigDecimal defaultPrice, Boolean reservation) {
 		super();
 		this.hostID = hostID;
 		this.name = name;
@@ -199,11 +200,11 @@ public class HomestayRequest {
 		this.reservation = reservation;
 	}
 
-	public Long getDefaultPrice() {
+	public BigDecimal getDefaultPrice() {
 		return defaultPrice;
 	}
 
-	public void setDefaultPrice(Long defaultPrice) {
+	public void setDefaultPrice(BigDecimal defaultPrice) {
 		this.defaultPrice = defaultPrice;
 	}
 

@@ -5,6 +5,7 @@ import HomeHeader from '../../../components/Header/HomeHeader/HomeHeader'
 import RegisterModal from '../../../components/Modal/RegisterModal/RegisterModal'
 import ToastProvider from '../../../providers/ToastProvider'
 import LoginModal from '../../../components/Modal/LoginModal/LoginModal'
+import { Outlet } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
@@ -15,7 +16,10 @@ const DefaultLayout = ({ children, currentUser }) => {
         <ToastProvider/>
         <RegisterModal/>
         <HomeHeader currentUser={currentUser}/>
-        {children}
+        <div className={cx('content')}>
+          <Outlet/>
+        </div>
+        
     </div>
   )
 }

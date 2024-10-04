@@ -190,6 +190,21 @@ const BecomeAHostLayout = () => {
             }
           });
           break;
+
+        case 'receipt':
+          console.log('receipt');
+          setFooterTitle('Finish');
+          setFooterOnClick(() => async () => {
+            try {
+              console.log(childData);
+              await homestayService.finishCreateHomestay(id);
+              console.log('Finished creating homestay for ID:', id);
+              navigate('/');
+            } catch (error) {
+              console.error('Error finishing creating homestay', error);
+            }
+          });
+          break;
         
         default:
           setFooterTitle('Next');

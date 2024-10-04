@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames/bind'
-import images from '../../../../asserts/image/image'
+import images from '../../../../assets/image/image'
 import styles from './Avatar.module.scss'
 
 const cx = classNames.bind(styles)

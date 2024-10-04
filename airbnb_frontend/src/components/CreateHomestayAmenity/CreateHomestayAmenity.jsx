@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import classNames from 'classnames/bind'
 import styles from './CreateHomestayAmenity.module.scss'
 
-import { amenities } from '../../asserts/data/AmenitiesData'
+import { amenities } from '../../assets/data/AmenitiesData'
 import AmenityItem from './AmenityItem/AmenityItem'
 
 const cx = classNames.bind(styles)

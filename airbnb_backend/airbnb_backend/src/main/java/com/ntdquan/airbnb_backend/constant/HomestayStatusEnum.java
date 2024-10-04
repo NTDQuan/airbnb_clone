@@ -1,6 +1,6 @@
 package com.ntdquan.airbnb_backend.constant;
 
-public enum HomestayStatus {
+public enum HomestayStatusEnum {
 
     DRAFT(-1),
     INACTIVE(0),
@@ -10,7 +10,7 @@ public enum HomestayStatus {
 
     private final int value;
 
-	private HomestayStatus(int value) {
+	private HomestayStatusEnum(int value) {
 		this.value = value;
 	}
 

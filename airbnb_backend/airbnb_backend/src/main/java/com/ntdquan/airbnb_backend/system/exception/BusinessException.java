@@ -1,4 +1,4 @@
-package com.ntdquan.airbnb_backend.exception;
+package com.ntdquan.airbnb_backend.system.exception;
 
 public class BusinessException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

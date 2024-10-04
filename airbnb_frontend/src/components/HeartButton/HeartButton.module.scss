@@ -1,0 +1,24 @@
+.wrapper {
+    position: relative;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    :hover {
+        opacity: 0.8; 
+    }
+
+    .heart-icon {
+        fill: white;
+        position: absolute;
+        top: -2px;
+        right: -2px;
+    }
+
+    .heart-icon-filled {
+        fill: rgba(115, 115, 115, 0.7);
+
+        &.active {
+            fill: #f43f5e;
+        }
+    }
+}

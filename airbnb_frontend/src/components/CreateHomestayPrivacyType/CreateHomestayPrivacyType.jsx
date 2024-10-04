@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './CreateHomestayPrivacyType.module.scss'
 
-import { privacyType } from '../../asserts/data/PrivacyTypeData'
+import { privacyType } from '../../assets/data/PrivacyTypeData'
 import CreateHomestayType from './CreateHomestayType/CreateHomestayType'
 
 const cx = classNames.bind(styles)

@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.Homestay.Model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,17 +47,14 @@ public class Homestay {
 	private String city;
 	private String province;
 	private String country;
-	
-	@ManyToOne
-	@JoinColumn(name = "homestay_status_id")
-	private HomestayStatus status;
+	private Integer status;
 	private int maxGuests;
 	private int bedRoomNum;
 	private int bedNum;
 	private int bathRoomNum;
 	private String type;
 	private boolean reservation;
-	private long defaultPrice;
+	private BigDecimal defaultPrice;
 	
 	@ManyToMany
 	@JoinTable(
@@ -83,8 +81,8 @@ public class Homestay {
 
 	public Homestay(Long id, User hostID, String name, String description, String address, Double latitude,
 			Double longitude, String geometry, String street, String city, String province, String country,
-			HomestayStatus status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type,
-			boolean reservation, long defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt,
+			Integer status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type,
+			boolean reservation, BigDecimal defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt,
 			LocalDateTime updatedAt) {
 		super();
 		this.id = id;
@@ -208,11 +206,11 @@ public class Homestay {
 		this.country = country;
 	}
 
-	public HomestayStatus getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(HomestayStatus status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -264,11 +262,11 @@ public class Homestay {
 		this.reservation = reservation;
 	}
 
-	public long getDefaultPrice() {
+	public BigDecimal getDefaultPrice() {
 		return defaultPrice;
 	}
 
-	public void setDefaultPrice(long defaultPrice) {
+	public void setDefaultPrice(BigDecimal defaultPrice) {
 		this.defaultPrice = defaultPrice;
 	}
 

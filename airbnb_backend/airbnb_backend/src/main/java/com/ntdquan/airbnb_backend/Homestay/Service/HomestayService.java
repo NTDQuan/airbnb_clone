@@ -4,19 +4,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ntdquan.airbnb_backend.user.Service.UserService;
+import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.ntdquan.airbnb_backend.Amenity.Model.Amenity;
 import com.ntdquan.airbnb_backend.Amenity.Repository.AmenityRepository;
-import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayCardDTO;
+import com.ntdquan.airbnb_backend.Booking.service.AvailabilityService;
 import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayListResponseDTO;
 import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayRequest;
-import com.ntdquan.airbnb_backend.Homestay.Mapper.Mapper;
 import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
 import com.ntdquan.airbnb_backend.Homestay.Repository.HomestayRepository;
-import com.ntdquan.airbnb_backend.constant.HomestayStatus;
-import com.ntdquan.airbnb_backend.exception.ResourceNotFoundException;
+import com.ntdquan.airbnb_backend.constant.HomestayStatusEnum;
+import com.ntdquan.airbnb_backend.system.exception.ObjectNotFoundException;
 import com.ntdquan.airbnb_backend.user.model.User;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -26,11 +30,15 @@ import jakarta.transaction.Transactional;
 public class HomestayService {
 	private final HomestayRepository homestayRepository;
 	private final AmenityRepository amenityRepository;
+	private final AvailabilityService availabilityService;
+    private final UserService userService;
 	
 	@Autowired
-	public HomestayService(HomestayRepository homestayRepository, AmenityRepository amenityRepository) {
+	public HomestayService(HomestayRepository homestayRepository, AmenityRepository amenityRepository, AvailabilityService availabilityService, UserService userService) {
 		this.homestayRepository = homestayRepository;
 		this.amenityRepository = amenityRepository;
+		this.availabilityService = availabilityService;
+        this.userService = userService;
 	}
 	
     public Homestay getHomestayById(Long id) {
@@ -74,15 +82,27 @@ public class HomestayService {
 		return homestay;
 	}
 	
-	public Homestay createHomestay(HomestayRequest homestayRequest, User currentUser) {
+	public Homestay createHomestay(HomestayRequest homestayRequest) {
 		Homestay homestay = new Homestay();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        Long userId = (Long) jwt.getClaims().get("userId");
+
+        User currentUser = userService.getUserById(userId);
+
         homestay.setHostID(currentUser);
-        
+        homestay.setStatus(HomestayStatusEnum.DRAFT.getValue());
         homestayRepository.save(homestay);
 		return homestay;
 	}
 	
-	public List<Homestay> getHomestayListById(User hostID) {
+	public List<Homestay> getHomestayListById() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        Long hostID = (Long) jwt.getClaims().get("userId");
 		return homestayRepository.findByHostID(hostID);
 	}
 	
@@ -102,7 +122,7 @@ public class HomestayService {
     @Transactional
     public Homestay updateHomestay(Long id, HomestayRequest homestayRequest) {
         Homestay homestay = homestayRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Homestay not found with id " + id));
+                .orElseThrow(() -> new ObjectNotFoundException("homestay", id.toString()));
 
         // Update fields only if they are present in the DTO
         if (homestayRequest.getName() != null) {
@@ -163,8 +183,21 @@ public class HomestayService {
         return homestayRepository.save(homestay);
     }
     
+    @Transactional
+    public Homestay finishCreateHomestayProcess(Long id) {
+        Homestay homestay = homestayRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Homestay", id.toString()));
+        homestay.setStatus(HomestayStatusEnum.ACTIVE.getValue());
+        availabilityService.addAvailableDaysToSingleHomestay(365, id);
+        
+        return homestayRepository.save(homestay);
+    }
     
     public Optional<Homestay> getHomestayCardById(Long id) {
-    	return homestayRepository.findById(id);
+        return homestayRepository.findById(id);
+    }
+    
+    public List<Homestay> getAllHomestayCard() {
+    	return homestayRepository.findAll();
     }
 }

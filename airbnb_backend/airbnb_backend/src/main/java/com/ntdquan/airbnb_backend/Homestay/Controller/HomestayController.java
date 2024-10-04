@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ntdquan.airbnb_backend.system.Result;
+import com.ntdquan.airbnb_backend.system.StatusCode;
+import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -40,40 +44,54 @@ public class HomestayController {
 		this.mapper = mapper;
 	}
 	
-	@GetMapping("/")
-	public ResponseEntity<List<HomestayListResponseDTO>> getAllHomestay() {
-		User currentUser = jwtService.getSession();
-		List<Homestay> homestayList = homestayService.getHomestayListById(currentUser);
+	@GetMapping("/listing")
+	public Result getOwnedHomestay() {
+		List<Homestay> homestayList = homestayService.getHomestayListById();
         List<HomestayListResponseDTO> homestayDTOs = homestayList.stream()
                 .map(homestayService::convertToResponseDTO)
                 .collect(Collectors.toList());
-		return ResponseEntity.ok(homestayDTOs);
+		return new Result(true, StatusCode.SUCCESS, "Find all success", homestayDTOs);
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<HomestayListResponseDTO> addNewHomestay(@RequestBody HomestayRequest homestayRequest) {
-		User currentUser = jwtService.getSession();
-		Homestay savedHomestay = homestayService.createHomestay(homestayRequest, currentUser);
+	public Result addNewHomestay(@RequestBody HomestayRequest homestayRequest) {
+		Homestay savedHomestay = homestayService.createHomestay(homestayRequest);
 		HomestayListResponseDTO homestayDTO = homestayService.convertToResponseDTO(savedHomestay);
-		return ResponseEntity.ok(homestayDTO);
+		return new Result(true, StatusCode.SUCCESS, "Add new homestay success", homestayDTO);
 	}
 	
 	@PatchMapping("/{id}")
-	public ResponseEntity<Homestay> updateHomestay(@PathVariable Long id, @RequestBody HomestayRequest homestayRequest) {
+	public Result updateHomestay(@PathVariable Long id, @RequestBody HomestayRequest homestayRequest) {
 		Homestay updatedHomestay = homestayService.updateHomestay(id, homestayRequest);
-		return ResponseEntity.ok(updatedHomestay);
+		return new Result(true, StatusCode.SUCCESS, "Update success", updatedHomestay);
 	}
 	
-	@GetMapping("/preview/{id}")
-	public ResponseEntity<HomestayCardDTO> getHomestayCardByID(@PathVariable Long id) {
+	@GetMapping("/public/preview/{id}")
+	public Result getHomestayCardByID(@PathVariable Long id) {
 		Optional<Homestay> homestayCard = homestayService.getHomestayCardById(id);
 		
 		if(homestayCard.isPresent()) {
 			Homestay homestay = homestayCard.get();
 			HomestayCardDTO homestayCardDTO = mapper.convertToHomestayCardDTO(homestay);
-			return ResponseEntity.ok(homestayCardDTO);
+			return new Result(true, StatusCode.SUCCESS, "Find all success", homestayCardDTO);
 		} else {
-			return ResponseEntity.notFound().build();
+			return new Result(false, StatusCode.NOT_FOUND, "Not found");
 		}
 	}
+	
+	@GetMapping("/public/preview")
+	public Result getAllHomestayCardByID() {
+		List<Homestay> homestayCardList = homestayService.getAllHomestayCard();
+		List<HomestayCardDTO> homestayCardDTOs = homestayCardList.stream()
+				.map(mapper::convertToHomestayCardDTO)
+				.collect(Collectors.toList());
+		return new Result(true, StatusCode.SUCCESS, "Find all success", homestayCardDTOs);
+	}
+	
+	@PatchMapping("/finish/{id}")
+	public Result finishCreateHomestay(@PathVariable Long id) {
+		Homestay updatedHomestay = homestayService.finishCreateHomestayProcess(id);
+		return new Result(true, StatusCode.SUCCESS, "Finish create homestay");
+	}
+	
 }

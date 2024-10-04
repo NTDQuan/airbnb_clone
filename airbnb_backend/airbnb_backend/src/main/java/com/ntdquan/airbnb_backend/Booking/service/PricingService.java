@@ -25,6 +25,7 @@ public class PricingService {
 		return new BookingPrice(
 				nightlyPrice,
 				BigDecimal.ZERO,
+				serviceFee,
 				nightlyPrice.subtract(serviceFee));
 	}
 }

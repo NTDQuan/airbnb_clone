@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './CreateHomestayCategory.module.scss'
 
-import { category } from '../../asserts/data/CategoryData'
+import { category } from '../../assets/data/CategoryData'
 import CategoryItem from './CategoryItem/CategoryItem'
 
 const cx = classNames.bind(styles)

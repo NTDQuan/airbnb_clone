@@ -3,8 +3,8 @@ import classNames from 'classnames/bind'
 import PropTypes from 'prop-types';
 import styles from './ListTableElement.module.scss'
 
-import no_image from '../../asserts/image/no_image.jpg'
-import { ReactComponent as Go_to_icon} from '../../asserts/image/go_to_icon.svg'
+import no_image from '../../assets/image/no_image.jpg'
+import { ReactComponent as Go_to_icon} from '../../assets/image/go_to_icon.svg'
 
 const cx = classNames.bind(styles)
 

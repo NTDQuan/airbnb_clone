@@ -41,11 +41,17 @@ const LoginModal = () => {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    axios.post('http://localhost:8080/api/auth/login', data, { withCredentials: true })
-        .then(async (res) => {
+    axios.post('http://localhost:8080/api/auth/login', {}, {
+      headers: {
+        'Authorization': `Basic ${btoa(data.email + ':' + data.password)}`
+      },
+    })
+        .then(async (response) => {
             setIsLoading(false);
-            if (res.status === 200) {
-              userState.onLogin(await fetchUserInfo());
+            if (response.data.code === 200) {
+              const { token, userInfo } = response.data.data;
+              localStorage.setItem('token', token);
+              userState.onLogin(userInfo);
               toast.success('Đăng nhập thành công');
               loginModal.onClose();
             } else {

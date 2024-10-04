@@ -31,16 +31,15 @@ public class Booking {
 	private LocalDate checkoutDate;
 	private BigDecimal nightlyPrice;
 	private BigDecimal serviceFee;
-	private BigDecimal cleaningService;
+	private BigDecimal discount;
 	private BigDecimal totalPrice;
-	
-	public Booking() {
-		super();
-	}
+	private String note;
+	private String requestId;
+	private Integer guests;
 
 	public Booking(Long id, Homestay homestay, User user, Integer bookingStatus, LocalDate checkinDate,
-			LocalDate checkoutDate, BigDecimal nightlyPrice, BigDecimal serviceFee, BigDecimal cleaningService,
-			BigDecimal totalPrice) {
+			LocalDate checkoutDate, BigDecimal nightlyPrice, BigDecimal serviceFee, BigDecimal discount,
+			BigDecimal totalPrice, String note, String requestId, Integer guests) {
 		super();
 		this.id = id;
 		this.homestay = homestay;
@@ -50,8 +49,29 @@ public class Booking {
 		this.checkoutDate = checkoutDate;
 		this.nightlyPrice = nightlyPrice;
 		this.serviceFee = serviceFee;
-		this.cleaningService = cleaningService;
+		this.discount = discount;
 		this.totalPrice = totalPrice;
+		this.note = note;
+		this.requestId = requestId;
+		this.guests = guests;
+	}
+
+	public Booking(Homestay homestay, User user, Integer bookingStatus, LocalDate checkinDate, LocalDate checkoutDate,
+			BigDecimal nightlyPrice, BigDecimal serviceFee, BigDecimal discount, BigDecimal totalPrice, String note,
+			String requestId, Integer guests) {
+		super();
+		this.homestay = homestay;
+		this.user = user;
+		this.bookingStatus = bookingStatus;
+		this.checkinDate = checkinDate;
+		this.checkoutDate = checkoutDate;
+		this.nightlyPrice = nightlyPrice;
+		this.serviceFee = serviceFee;
+		this.discount = discount;
+		this.totalPrice = totalPrice;
+		this.note = note;
+		this.requestId = requestId;
+		this.guests = guests;
 	}
 
 	public Long getId() {
@@ -118,12 +138,12 @@ public class Booking {
 		this.serviceFee = serviceFee;
 	}
 
-	public BigDecimal getCleaningService() {
-		return cleaningService;
+	public BigDecimal getDiscount() {
+		return discount;
 	}
 
-	public void setCleaningService(BigDecimal cleaningService) {
-		this.cleaningService = cleaningService;
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
 	}
 
 	public BigDecimal getTotalPrice() {
@@ -133,6 +153,29 @@ public class Booking {
 	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
+
+	public Integer getGuests() {
+		return guests;
+	}
+
+	public void setGuests(Integer guests) {
+		this.guests = guests;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
 	
 }

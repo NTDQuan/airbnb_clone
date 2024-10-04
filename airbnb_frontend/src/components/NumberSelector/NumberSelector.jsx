@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './NumberSelector.module.scss'
-import { ReactComponent as IncreaseIcon } from '../../asserts/icon/Increase.svg';
-import { ReactComponent as DecreaseIcon } from '../../asserts/icon/Decrease.svg';
+import { ReactComponent as IncreaseIcon } from '../../assets/icon/Increase.svg';
+import { ReactComponent as DecreaseIcon } from '../../assets/icon/Decrease.svg';
 
 const cx = classNames.bind(styles)
 

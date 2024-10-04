@@ -27,9 +27,5 @@ public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-    @GetMapping("/")
-    public UserDTO getCurrentUser() {
-    	User currentUser = jwtService.getSession();
-    	return new UserDTO(currentUser);
-    }
+
 }

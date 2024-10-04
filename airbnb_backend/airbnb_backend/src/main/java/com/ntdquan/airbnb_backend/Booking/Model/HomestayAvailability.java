@@ -28,16 +28,14 @@ public class HomestayAvailability {
 	@Column(name = "price")
 	private BigDecimal price;
 	
-	@ManyToOne
-	@JoinColumn(name = "availability_status_id")
-	private AvailabilityStatus availabilityStatus;
+	private Integer availabilityStatus;
 
 	public HomestayAvailability() {
 		super();
 	}
 
 	public HomestayAvailability(HomestayAvailabilityId id, Homestay homestayId, LocalDate date, BigDecimal price,
-			AvailabilityStatus availabilityStatus) {
+			Integer availabilityStatus) {
 		super();
 		this.id = id;
 		this.homestayId = homestayId;
@@ -47,7 +45,7 @@ public class HomestayAvailability {
 	}
 
 	public HomestayAvailability(Homestay homestayId, LocalDate date, BigDecimal price,
-			AvailabilityStatus availabilityStatus) {
+			Integer availabilityStatus) {
 		super();
 		this.homestayId = homestayId;
 		this.date = date;
@@ -87,11 +85,11 @@ public class HomestayAvailability {
 		this.price = price;
 	}
 
-	public AvailabilityStatus getAvailabilityStatus() {
+	public Integer getAvailabilityStatus() {
 		return availabilityStatus;
 	}
 
-	public void setAvailabilityStatus(AvailabilityStatus availabilityStatus) {
+	public void setAvailabilityStatus(Integer availabilityStatus) {
 		this.availabilityStatus = availabilityStatus;
 	}
 

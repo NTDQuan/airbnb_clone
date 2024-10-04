@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2rem;
+
+    .region-container {
+        color: #6b7280;
+        margin-left: 0.4rem;
+    }
+}
+
+.control {
+    padding: 1.2rem;
+    border: 2px solid #d1d5db;
+}
+
+.input {
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+}
+
+.option {
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+}
