@@ -3,6 +3,8 @@ package com.ntdquan.airbnb_backend.Booking.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AvailabilityService {
+	private static Logger log = LoggerFactory.getLogger(AvailabilityService.class);
+
 	private static final int NIGHT_MAX = 365;
 	
 	private final HomestayAvailabilityRepository availabilityRepository;
@@ -32,23 +36,24 @@ public class AvailabilityService {
 		this.homestayRepository = homestayRepository;
 	}
 	
-	public List<HomestayAvailability> checkAvailabilityForBooking(final Long homestayId,
+	public List<HomestayAvailability> checkAvailabilityForBooking(final Homestay homestay,
 																  final LocalDate checkinDate,
 																  final LocalDate checkoutDate) {
+		log.info("checkAvailabilityForBooking start");
 		final int nights = (int) DateUtil.getDiffInDays(checkinDate, checkoutDate);
 		if (nights > NIGHT_MAX) {
 			throw new BusinessException("Night invalid");
 		}
 		
 		final List<HomestayAvailability> aDays = availabilityRepository.findAndLockHomestayAvailability(
-				homestayId, 
+				homestay,
 				AvailabilityStatusEnum.AVAILABLE.getValue(), 
 				checkinDate, 
 				checkoutDate);
 		if (aDays.isEmpty() || aDays.size() < nights) {
 			throw new BusinessException("Homestay busy");
 		}
-		
+		log.info("checkAvailabilityForBooking end");
 		return aDays;
 	}
 	

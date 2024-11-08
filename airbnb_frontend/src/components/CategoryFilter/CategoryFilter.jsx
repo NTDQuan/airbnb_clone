@@ -15,7 +15,15 @@ const CategoryFilter = () => {
   }
 
   return (
-    <div className={cx('wrapper')}>
+    <div className="
+      pt-4
+      flex
+      flex-row
+      items-center
+      justify-between
+      overflow-x-auto
+      "
+    >
         {category && category.map((item) => (
             <CategoryFilterItem
                 key={item.label}

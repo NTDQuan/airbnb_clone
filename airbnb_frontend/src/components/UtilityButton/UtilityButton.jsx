@@ -7,8 +7,19 @@ const cx = classNames.bind(styles)
 
 const UtilityButton = ({ onClick, disabled, outline, icon : Icon }) => {
   return (
-    <button className={cx('button', { disable: disabled, outline: outline})} disabled={disabled} onClick={onClick}>
-        <Icon className={cx('icon')} size={16}/>
+    <button 
+      disabled={disabled}
+      onClick={onClick}
+      className={`
+        relative
+        rounded-full
+        border-none
+        p-3
+        bg-gray-100
+        cursor-pointer
+        hover:bg-gray-200
+      `}>
+        <Icon className={cx('icon')} size={22}/>
     </button>
   )
 }

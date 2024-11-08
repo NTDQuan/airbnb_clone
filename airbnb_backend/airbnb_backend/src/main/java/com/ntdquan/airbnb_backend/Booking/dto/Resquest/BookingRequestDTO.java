@@ -102,6 +102,19 @@ public class BookingRequestDTO {
 	public void setHomestayId(Long homestayId) {
 		this.homestayId = homestayId;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "BookingRequestDTO{" +
+				"requestId='" + requestId + '\'' +
+				", userId=" + userId +
+				", homestayId=" + homestayId +
+				", checkinDate=" + checkinDate +
+				", checkoutDate=" + checkoutDate +
+				", guest=" + guest +
+				", note='" + note + '\'' +
+				", adultGuests=" + adultGuests +
+				", childGuests=" + childGuests +
+				'}';
+	}
 }

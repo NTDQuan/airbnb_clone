@@ -19,20 +19,30 @@ const Amenities = () => {
   };
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('container')}>
-        <Container>
-          <div className={cx('contain')}>
-            <div className={cx('title')}>
-              <Heading title='Tell guests what your place has to offer' subtitle="You can add more amenities after you publish your listing." big={true}/>
-            </div>
-            <div className={cx('list')}>
-              <CreateHomestayAmenity onSelectAmenity={handleSelectAmenity}/>
-            </div>
+    <Container>
+      <div className="
+        w-full 
+       bg-white
+        flex
+        justify-center
+        items-center
+        [scrollbar-width:none]
+        md:overflow-y-auto
+        md:mt-[61px]
+        md:border-t-0
+        md:h-[calc(100vh-88px)]
+        md:px-[80px]
+      ">
+        <div className="flex h-auto flex-auto flex-col w-full items-center">
+          <div className="w-[650px] mb-6 mt-4">
+            <Heading title='Tell guests what your place has to offer' subtitle="You can add more amenities after you publish your listing." big={true} />
           </div>
-        </Container>
+          <div className="w-[650px]">
+            <CreateHomestayAmenity onSelectAmenity={handleSelectAmenity} />
+          </div>
+        </div>
       </div>
-    </div>
+    </Container>
   )
 }
 

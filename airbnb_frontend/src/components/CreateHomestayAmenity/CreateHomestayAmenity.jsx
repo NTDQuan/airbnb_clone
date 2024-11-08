@@ -28,8 +28,8 @@ const CreateHomestayAmenity = ({ onSelectAmenity }) => {
   }, [selectedAmenities, onSelectAmenity]);
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('container')}>
+    <div className="mb-12 md:mb-10 md:min-w-[650px] md:mx-auto md:mt-6">
+      <div className="flex flex-row flex-wrap gap-3 justify-start md:gap-4">
         {amenities && amenities.map((item) => (
             <AmenityItem
             key={item.label}

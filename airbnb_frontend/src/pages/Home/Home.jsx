@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
 import EmptyState from '../../components/EmptyState/EmptyState';
-import Container from '../../components/Header/Container/Container';
+import Container from '../../components/Container/Container';
 import homestayService from '../../service/ListingService';
 import ListingCard from '../../components/ListingCard/ListingCard';
 
@@ -32,17 +32,25 @@ const Home = () => {
   }
 
   return (
-    <div className={cx('wrapper')}>     
-      <Container>
-        <div className={cx('contain')}>
-          {homestayList.map((homestayList) => {
-            return (
-              <ListingCard/>
-            )
-          })}
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className='
+        pt-24
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5
+        2xl:grid-cols-6
+        gap-8
+      '>
+        {homestayList.map((homestay) => {
+          return (
+            <ListingCard key={homestay.id} homestay={homestay}/>
+          )
+        })}
+      </div>
+    </Container>
   )
 }
 

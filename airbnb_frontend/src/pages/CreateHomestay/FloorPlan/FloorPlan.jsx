@@ -30,81 +30,91 @@ const FloorPlan = () => {
   }, []);
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('container')}>
-        <Container>
-          <div className={cx('contain')}>
-            <div className={cx('title')}>
-              <Heading title='Share some basics about your place' subtitle="You'll add more details later, like bed types." big={true}/>
-            </div>
-            <div className={cx('input')}>
-              <div className={cx('input-wrapper')}>
-                <div className={cx('input-container')}>
-                  <div className={cx('input-contain')}>
-                    <div className={cx('text-wrapper')}>
-                      <div className={cx('text-container')}>
-                        <div className={cx('text')}>
-                          Guests
-                        </div>
+    <Container>
+      <div className="
+        w-full 
+        bg-white
+        flex
+        justify-center
+        items-center
+        [scrollbar-width:none]
+        md:overflow-y-auto
+        md:mt-[61px]
+        md:border-t-0
+        md:h-[calc(100vh-88px)]
+        md:px-[80px]
+      ">
+        <div className="flex h-auto flex-auto flex-col w-full items-center">
+          <div className="w-[650px] mb-6 mt-4">
+            <Heading title='Share some basics about your place' subtitle="You'll add more details later, like bed types." big={true} />
+          </div>
+          <div className="relative w-[650px] flex flex-col items-center">
+            <div className="w-full px-0 py-2 border-b-[1px_solid_rgb(235,_235,_235)]">
+              <div className="py-4 rounded-[1px]">
+                <div className="flex gap-[8px 16px] flex-wrap">
+                  <div className="flex flex-col justify-center flex-auto w-full">
+                    <div className="cursor-pointer text-gray-900 text-base">
+                      <div className="text-lg font-normal">
+                        Guests
                       </div>
                     </div>
-                    <NumberSelector defaultNumber={1} onNumberChange={(value) => handleNumberChange('max_guests', value)}/>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx('input')}>
-              <div className={cx('input-wrapper')}>
-                <div className={cx('input-container')}>
-                  <div className={cx('input-contain')}>
-                    <div className={cx('text-wrapper')}>
-                      <div className={cx('text-container')}>
-                        <div className={cx('text')}>
-                          Bedrooms
-                        </div>
-                      </div>
-                    </div>
-                    <NumberSelector defaultNumber={0} onNumberChange={(value) => handleNumberChange('bed_room_num', value)}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx('input')}>
-              <div className={cx('input-wrapper')}>
-                <div className={cx('input-container')}>
-                  <div className={cx('input-contain')}>
-                    <div className={cx('text-wrapper')}>
-                      <div className={cx('text-container')}>
-                        <div className={cx('text')}>
-                          Beds
-                        </div>
-                      </div>
-                    </div>
-                    <NumberSelector defaultNumber={0} onNumberChange={(value) => handleNumberChange('bed_num', value)}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={cx('input')}>
-              <div className={cx('input-wrapper')}>
-                <div className={cx('input-container')}>
-                  <div className={cx('input-contain')}>
-                    <div className={cx('text-wrapper')}>
-                      <div className={cx('text-container')}>
-                        <div className={cx('text')}>
-                          Bathrooms
-                        </div>
-                      </div>
-                    </div>
-                    <NumberSelector defaultNumber={1} onNumberChange={(value) => handleNumberChange('bath_room_num', value)}/>
-                  </div>
+                  <NumberSelector defaultNumber={1} onNumberChange={(value) => handleNumberChange('max_guests', value)} />
                 </div>
               </div>
             </div>
           </div>
-        </Container>
+          <div className="relative w-[650px] flex flex-col items-center">
+            <div className="w-full px-0 py-2 border-b-[1px_solid_rgb(235,_235,_235)]">
+              <div className="py-4 rounded-[1px]">
+                <div className="flex gap-[8px 16px] flex-wrap">
+                  <div className="flex flex-col justify-center flex-auto w-full">
+                    <div className="cursor-pointer text-gray-900 text-base">
+                      <div className="text-lg font-normal">
+                        Bedrooms
+                      </div>
+                    </div>
+                  </div>
+                  <NumberSelector defaultNumber={0} onNumberChange={(value) => handleNumberChange('bed_room_num', value)} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="relative w-[650px] flex flex-col items-center">
+            <div className="w-full px-0 py-2 border-b-[1px_solid_rgb(235,_235,_235)]">
+              <div className="py-4 rounded-[1px]">
+                <div className="flex gap-[8px 16px] flex-wrap">
+                  <div className="flex flex-col justify-center flex-auto w-full">
+                    <div className="cursor-pointer text-gray-900 text-base">
+                      <div className="text-lg font-normal">
+                        Beds
+                      </div>
+                    </div>
+                  </div>
+                  <NumberSelector defaultNumber={0} onNumberChange={(value) => handleNumberChange('bed_num', value)} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="relative w-[650px] flex flex-col items-center">
+            <div className="w-full px-0 py-2 border-b-[1px_solid_rgb(235,_235,_235)]">
+              <div className="py-4 rounded-[1px]">
+                <div className="flex gap-[8px 16px] flex-wrap">
+                  <div className="flex flex-col justify-center flex-auto w-full">
+                    <div className="cursor-pointer text-gray-900 text-base">
+                      <div className="text-lg font-normal">
+                        Bathrooms
+                      </div>
+                    </div>
+                  </div>
+                  <NumberSelector defaultNumber={1} onNumberChange={(value) => handleNumberChange('bath_room_num', value)} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </Container>
   )
 }
 

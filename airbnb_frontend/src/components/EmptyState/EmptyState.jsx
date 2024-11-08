@@ -11,13 +11,21 @@ const EmptyState = ( {title = "No exact matches", subtitle = "Try changing your 
     const navigate = useNavigate();
 
     return (
-        <div className={cx('wrapper')}>
+        <div className="
+                h-[60vh]
+                flex
+                flex-col
+                gap-2
+                justify-center
+                items-center
+            "
+        >
             <Heading
                 center
                 title={title}
                 subtitle={subtitle}
             />
-            <div className='reset-button-container'>
+            <div className='w-48 mt-4'>
                 {showReset && (
                     <Button
                         outline

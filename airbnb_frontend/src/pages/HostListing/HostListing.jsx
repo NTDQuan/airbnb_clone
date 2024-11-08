@@ -32,23 +32,35 @@ const HostListing = () => {
 
 
   return (
-    <section className={cx('wrapper')}>
-      <header>
-        <div className={cx('title')}>
-            <h1>Nhà/phòng cho thuê của bạn</h1>
+    <section className="flex flex-col">
+      <header className='
+        flex 
+        flex-row
+        justify-between
+        my-10
+      '>
+        <div className="flex justify-center">
+            <h1 className='text-3xl font-bold'>Your listings</h1>
         </div>
-        <div className={cx('utility-button')}>
+        <div className="flex flex-row gap-[1rem]">
             <UtilityButton icon={IoIosSearch}  />
             <UtilityButton icon={GoPlus} onClick={() => { navigate('/become-a-host') }}/>
         </div>
       </header>
-      <div className={cx('list')}>
-        <table>
+      <div className="w-full">
+        <table className='
+          w-full
+          border
+          border-transparent
+          border-separate
+          border-spacing-4
+          text-left
+        '>
             <thead>
                 <tr>
-                    <th className={cx('listing')}>Mục cho thuê</th>
-                    <th className={cx('location')}>Vị trí</th>
-                    <th className={cx('status')}>Trạng thái</th>
+                    <th className="p-3 w-1/2 min-w-[335px]">Listing</th>
+                    <th className="p-3 w-[27%]">Location</th>
+                    <th className="p-3 w-[19%]">Status</th>
                 </tr> 
             </thead>
             <tbody>

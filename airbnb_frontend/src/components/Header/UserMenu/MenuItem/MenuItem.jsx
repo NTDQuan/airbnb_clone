@@ -6,7 +6,16 @@ const cx = classNames.bind(styles)
 
 const MenuItem = ({onClick, label}) => {
   return (
-    <div className={cx('wrapper')} onClick={onClick}>
+    <div 
+      onClick={onClick} 
+      className="
+        px-4
+        py-3
+        hover:bg-neutral-100
+        transition
+        font-semibold
+      "
+    >
       {label}
     </div>
   )

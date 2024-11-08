@@ -20,7 +20,7 @@ public class HomestayAvailability {
 	@ManyToOne
 	@MapsId("homestayId")
 	@JoinColumn(name = "homestay_id")
-	private Homestay homestayId;
+	private Homestay homestay;
 	
 	@Column(insertable=false, updatable=false)
 	private LocalDate date;
@@ -34,20 +34,20 @@ public class HomestayAvailability {
 		super();
 	}
 
-	public HomestayAvailability(HomestayAvailabilityId id, Homestay homestayId, LocalDate date, BigDecimal price,
+	public HomestayAvailability(HomestayAvailabilityId id, Homestay homestay, LocalDate date, BigDecimal price,
 			Integer availabilityStatus) {
 		super();
 		this.id = id;
-		this.homestayId = homestayId;
+		this.homestay = homestay;
 		this.date = date;
 		this.price = price;
 		this.availabilityStatus = availabilityStatus;
 	}
 
-	public HomestayAvailability(Homestay homestayId, LocalDate date, BigDecimal price,
+	public HomestayAvailability(Homestay homestay, LocalDate date, BigDecimal price,
 			Integer availabilityStatus) {
 		super();
-		this.homestayId = homestayId;
+		this.homestay = homestay;
 		this.date = date;
 		this.price = price;
 		this.availabilityStatus = availabilityStatus;
@@ -61,12 +61,12 @@ public class HomestayAvailability {
 		this.id = id;
 	}
 
-	public Homestay getHomestayId() {
-		return homestayId;
+	public Homestay getHomestay() {
+		return homestay;
 	}
 
-	public void setHomestayId(Homestay homestayId) {
-		this.homestayId = homestayId;
+	public void setHomestay(Homestay homestay) {
+		this.homestay = homestay;
 	}
 
 	public LocalDate getDate() {

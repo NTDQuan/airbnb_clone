@@ -52,10 +52,28 @@ public class BookingService {
 		this.mapper = mapper;
 	}
 
+	private Homestay validateHomestay(final BookingRequestDTO request) {
+		Homestay homestay = homestayService.getHomestayById(request.getHomestayId());
+		if (homestay == null) {
+			throw new BusinessException("homestay not found");
+		}
+
+		if (homestay.getStatus() != HomestayStatusEnum.ACTIVE.getValue()) {
+			throw new BusinessException("Homestay not active");
+		}
+
+		if (homestay.getMaxGuests() < request.getGuest()) {
+			throw new BusinessException("Guest invalid");
+		}
+
+		return homestay;
+	}
+
 	@Transactional
 	public BookingResponse book(final BookingRequestDTO request) throws InterruptedException {
 		validateRequest(request);
-		Homestay homestay = validateHomestay(request);
+		Homestay homestay = homestayService.getHomestayById(request.getHomestayId());
+		log.info("Homestay got from id {}" , homestay.getId());
 		User user = userService.getUserById(request.getUserId());
 		
 		final Long homestayId = request.getHomestayId();
@@ -63,7 +81,7 @@ public class BookingService {
 		final LocalDate checkoutDate = request.getCheckoutDate();
 		
 		log.debug("[request_id={}] User user_id={} is acquiring lock homestay_id={} from checkin_date={} to checkout_date={}", request.getRequestId(), request.getUserId(), homestayId, checkinDate, checkoutDate);
-		final List<HomestayAvailability> aDays = availabilityService.checkAvailabilityForBooking(homestayId, checkinDate, checkoutDate);
+		final List<HomestayAvailability> aDays = availabilityService.checkAvailabilityForBooking(homestay, checkinDate, checkoutDate);
 		log.debug("[request_id={}] User user_id={} locked homestay_id={} from checkin_date={} to checkout_date={}", request.getRequestId(), request.getUserId(), request.getHomestayId(), checkinDate, checkoutDate);
 		
 		Thread.sleep(5000);
@@ -104,23 +122,6 @@ public class BookingService {
 		if (request.getGuest() <= 0) {
 			throw new BusinessException("Guests invalid");
 		}
-	}
-	
-	private Homestay validateHomestay(final BookingRequestDTO request) {
-		final Homestay homestay = homestayService.getHomestayById(request.getHomestayId());
-		if (homestay == null) {
-			throw new BusinessException("homestay not found");
-		}
-		
-		if (homestay.getStatus() != HomestayStatusEnum.ACTIVE.getValue()) {
-			throw new BusinessException("Homestay not active");
-		}
-		
-		if (homestay.getMaxGuests() < request.getGuest()) {
-			throw new BusinessException("Guest invalid");
-		}
-		
-		return homestay;
 	}
 	
 }

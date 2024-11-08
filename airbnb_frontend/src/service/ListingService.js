@@ -4,7 +4,7 @@ import axiosInstance from './AxiosInterceptors.js';
 const homestayService = {
     getAllHomestays: async () => {
         try {
-            const response = await axiosInstance.get("/homestay/public/listing/{id}");
+            const response = await axiosInstance.get("/homestay/listing");
             return response.data.data;
         } catch (error) {
             console.error('Error fetching homestays:', error);
@@ -58,6 +58,16 @@ const homestayService = {
             return response.data.data;
         } catch (error) {
             console.error('Error fetching homestay card:', error);
+            throw error;
+        }
+    },
+
+    getHomestayInfo: async (id) => {
+        try {
+            const response = await axiosInstance.get(`/homestay/public/${id}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching homestay info:', error);
             throw error;
         }
     }

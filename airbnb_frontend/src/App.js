@@ -26,6 +26,7 @@ import InstantBook from './pages/CreateHomestay/InstantBook/InstantBook';
 import Price from './pages/CreateHomestay/Price/Price';
 import Receipt from './pages/CreateHomestay/Receipt/Receipt';
 import Home from './pages/Home/Home';
+import ClientHomestayInfo from './pages/ClientHomestayInfo/ClientHomestayInfo';
 
 function App() {
     const authUser = useUserData();
@@ -50,7 +51,11 @@ function App() {
         path: "/",
         element: <DefaultLayout currentUser={currentUser} />,
         children: [
-          {index: true, element: <Home/>}
+          {index: true, element: <Home/>},
+          {
+            path: "/rooms/:id",
+            element: <ClientHomestayInfo/>
+          }
         ]
       },
       {
@@ -88,7 +93,7 @@ function App() {
                 }
               }
             ]
-          }
+          },
         ]
       }
     ]);

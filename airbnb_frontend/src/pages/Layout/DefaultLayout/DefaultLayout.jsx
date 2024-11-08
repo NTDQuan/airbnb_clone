@@ -6,17 +6,18 @@ import RegisterModal from '../../../components/Modal/RegisterModal/RegisterModal
 import ToastProvider from '../../../providers/ToastProvider'
 import LoginModal from '../../../components/Modal/LoginModal/LoginModal'
 import { Outlet } from 'react-router-dom'
+import CategoryFilter from '../../../components/CategoryFilter/CategoryFilter'
 
 const cx = classNames.bind(styles)
 
 const DefaultLayout = ({ children, currentUser }) => {
   return (
-    <div className={cx('wrapper')}>
+    <div>
         <LoginModal/>
         <ToastProvider/>
         <RegisterModal/>
         <HomeHeader currentUser={currentUser}/>
-        <div className={cx('content')}>
+        <div className="pb-20 pt-[181px]">
           <Outlet/>
         </div>
         

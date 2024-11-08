@@ -16,7 +16,7 @@ const CreateHomestayCategory = ({ onSelectCategory }) => {
   };
 
   return (
-    <div className={cx('wrapper')}>
+    <div className="pt-0.5 pb-12 flex flex-wrap gap-3 md:pb-10 md:max-w-[700px] md:gap-4">
       {category && category.map((item) => (
         <CategoryItem
           key={item.label}

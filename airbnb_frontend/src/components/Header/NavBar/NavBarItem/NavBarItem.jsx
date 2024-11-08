@@ -10,7 +10,20 @@ const NavBarItem = ({ label, onClick, selected, path }) => {
     const navigate = useNavigate()
 
     return (
-        <button className={cx('Nav-bar-item', { selected: selected })} 
+        <button className={`
+            relative
+            rounded-full
+            px-4
+            py-[10px]
+            border-none
+            bg-transparent
+            text-sm
+            font-medium
+            cursor-pointer
+            text-gray-500
+            ${selected ? 'text-gray-900 font-bold' : 'text-gray-500'}
+            hover:bg-gray-100 hidden xl:inline-block
+        `} 
                 onClick={() => {
                     onClick();
                     navigate(path);

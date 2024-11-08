@@ -8,9 +8,11 @@ const cx = classNames.bind(styles)
 const Logo = () => {
   return (
     <img
-    className={cx('wrapper')}
-        alt='logo'
-        src={image.logo}
+      className="hidden md:block cursor-pointer"
+      alt='logo'
+      height="100"
+      width="100"
+      src={image.logo}
     />
   )
 }

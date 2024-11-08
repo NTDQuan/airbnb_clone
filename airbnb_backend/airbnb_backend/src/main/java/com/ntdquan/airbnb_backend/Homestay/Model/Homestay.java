@@ -293,4 +293,5 @@ public class Homestay {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
 }

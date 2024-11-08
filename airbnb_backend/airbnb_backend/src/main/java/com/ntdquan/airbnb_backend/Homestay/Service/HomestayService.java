@@ -103,8 +103,8 @@ public class HomestayService {
 
         Jwt jwt = (Jwt) authentication.getPrincipal();
         Long hostID = (Long) jwt.getClaims().get("userId");
-		return homestayRepository.findByHostID(hostID);
-	}
+        return homestayRepository.findByHostID(hostID);
+    }
 	
 	public HomestayListResponseDTO convertToResponseDTO(Homestay homestay) {
 		HomestayListResponseDTO dto = new HomestayListResponseDTO();
@@ -137,8 +137,8 @@ public class HomestayService {
         if (homestayRequest.getLongitude() != null) {
             homestay.setLongitude(homestayRequest.getLongitude());
         }
-        if (homestayRequest.getGeometry() != null) {
-            homestay.setGeometry(homestayRequest.getGeometry());
+        if (homestayRequest.getType() != null) {
+            homestay.setType(homestayRequest.getType());
         }
         if (homestayRequest.getStreet() != null || 
         	homestayRequest.getCountry() != null ||

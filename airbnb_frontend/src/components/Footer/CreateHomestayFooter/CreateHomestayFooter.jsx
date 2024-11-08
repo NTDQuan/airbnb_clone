@@ -7,10 +7,10 @@ const cx = classNames.bind(styles);
 
 const CreateHomestayFooter = ({ title, onClick, path }) => {
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('container')}>
-        <div className={cx('contain')}>
-            <div className={cx('button-holder')}>
+    <div className="bottom-0 z-[2] w-[100vw] fixed">
+      <div className="bg-white border-t-[6px] border-t-solid border-t-[rgb(221, 221, 221)]">
+        <div className="flex items-center py-4 justify-end">
+            <div className="mr-6 md:mr-12">
               <CreateHomestayButton title={title} onClick={onClick}/>
             </div>
         </div>

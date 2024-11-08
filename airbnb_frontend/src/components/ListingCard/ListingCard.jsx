@@ -1,34 +1,50 @@
 import React, { useMemo } from 'react'
 import classNames from 'classnames/bind'
 import styles from './ListingCard.module.scss'
+import { useNavigate } from 'react-router-dom'
 import noImage from '../../assets/image/no_image.jpg'
 import HeartButton from '../HeartButton/HeartButton'
 
 const cx = classNames.bind(styles)
 
-const ListingCard = () => {
-
+const ListingCard = ({ homestay }) => {
+  const navigate = useNavigate();
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('container')}>
-        <div className={cx('image-container')}>
-          <img src={noImage} alt="No Available"/>
-          <div className={cx('favorite-container')}>
+    <div className="col-span-1 cursor-pointer group"
+      onClick={() => navigate(`/rooms/${homestay.id}`)}
+    >
+      <div className="flex flex-col gap-2 w-full">
+        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+          <img 
+            src="https://placehold.co/600x400" 
+            alt="No Available"
+            className='
+              object-cover
+              w-full
+              h-full
+              group-hover:scale-110
+              transition
+            '
+          />
+          <div className="absolute top-3 right-3">
             <HeartButton/>
           </div>
         </div>
-        <div className={cx('location-container')}>
-          HCM, VietNam
+        <div className='font-semibold text-lg'>
+          {/*{homestay.city}, {homestay.country}*/}
+          Floria, US
         </div>
-        <div className={cx('category-container')}>
+        <div className='font-light text-neutral-500'>
+          {/*{homestay.type}*/}
           Beach
         </div>
-        <div className={cx('price-container')}>
-          <div className={cx('price')}>
-            $ 500
+        <div className='flex flex-row items-center gap-1'>
+          <div className='font-semibold'>
+            {/*$ {homestay.defaultPrice}*/}
+            $ 100
           </div>
-          <div className='text'>night</div>
+          <div className='font-light'>night</div>
         </div>
       </div>
     </div>

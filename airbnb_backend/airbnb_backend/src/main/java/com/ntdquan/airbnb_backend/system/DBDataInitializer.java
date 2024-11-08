@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.system;
 
+import com.ntdquan.airbnb_backend.Homestay.Model.Homestay;
 import com.ntdquan.airbnb_backend.user.Service.UserService;
 import com.ntdquan.airbnb_backend.user.model.User;
 import org.apache.logging.log4j.Logger;

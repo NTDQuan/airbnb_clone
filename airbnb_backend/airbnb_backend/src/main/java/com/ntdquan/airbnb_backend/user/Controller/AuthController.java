@@ -1,5 +1,6 @@
 package com.ntdquan.airbnb_backend.user.Controller;
 
+import com.ntdquan.airbnb_backend.user.auth.DTO.RegisterRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,13 @@ public class AuthController {
 	public Result getLoginInfo(Authentication authentication) {
 		log.debug("Authenticated user: '{}'", authentication.getName());
 		return new Result(true, StatusCode.SUCCESS, "User Info and JSON Web Token", this.authService.createLoginInfo(authentication));
+	}
+
+	@PostMapping("/register")
+	public Result register(@RequestBody RegisterRequest registerRequest) {
+		log.debug("Register user with email: '{}'", registerRequest.getEmail());
+		this.authService.register(registerRequest);
+		return new Result(true, StatusCode.SUCCESS, "User successfully registered");
 	}
 
 }

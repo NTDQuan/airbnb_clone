@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayInfoDTO;
 import com.ntdquan.airbnb_backend.system.Result;
 import com.ntdquan.airbnb_backend.system.StatusCode;
 import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
@@ -92,6 +93,18 @@ public class HomestayController {
 	public Result finishCreateHomestay(@PathVariable Long id) {
 		Homestay updatedHomestay = homestayService.finishCreateHomestayProcess(id);
 		return new Result(true, StatusCode.SUCCESS, "Finish create homestay");
+	}
+
+	@GetMapping("/public/{id}")
+	public Result getHomestayByID(@PathVariable Long id) {
+		Homestay homestay = homestayService.getHomestayById(id);
+		if(homestay != null) {
+			HomestayInfoDTO homestayInfoDTO = mapper.convertToHomestayInfoDTO(homestay);
+			return new Result(true, StatusCode.SUCCESS, "Find all success", homestayInfoDTO);
+		}
+		else {
+			return new Result(false, StatusCode.NOT_FOUND, "Not found");
+		}
 	}
 	
 }

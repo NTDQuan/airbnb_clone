@@ -7,9 +7,27 @@ const cx = classNames.bind(styles)
 
 const CategoryFilterItem = ({label, icon : Icon, selected, onClick}) => {
   return (
-    <div className={cx('wrapper', { selected: selected })} onClick={onClick}>
-        <Icon className={cx('icon')}/>
-        <span className={cx('label')}>{label}</span>
+    <div 
+      onClick={onClick} 
+      className={`
+        flex
+        flex-col
+        items-center
+        justify-center
+        gap-2
+        p-3
+        border-b-2
+        hover:text-neutral-800
+        transition
+        cursor-pointer
+        ${selected ? 'text-neutral-800' : 'text-neutral-500'}
+        ${selected ? 'border-b-neutral-800' : 'border-transparent'}
+      `}
+    >
+        <Icon size={26}/>
+        <span className="font-medium text-sm">
+          {label}
+        </span>
     </div>
   )
 }

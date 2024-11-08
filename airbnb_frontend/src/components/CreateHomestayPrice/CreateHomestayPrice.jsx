@@ -21,21 +21,37 @@ const CreateHomestayPrice = ({ onPriceChange }) => {
   }, [value, onPriceChange])
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('price-container')}>
-        <div className={cx('price')}>
-          <div className={cx('price-sign')}>
+    <div className="w-full flex items-center justify-center">
+        <div className="w-auto flex flex-row">
+          <div className="relative 
+            border-[none] 
+            font-bold 
+            inline-block
+            text-6xl
+            md:text-9xl
+            ">
             $
           </div>
           <input
-              className={cx('price-input')}
               inputMode="numeric"
               type="text"
               autoComplete="off"
               value={value}
               onChange={handleChange}
+              className="
+                relavtive
+                border-[none]
+                font-bold
+                inline-block
+                text-6xl
+                break-all
+                w-[600px]
+                max-w-full
+                box-border
+                md:text-9xl
+                focus:outline-none
+              "
           />
-        </div>
       </div>
       <div className={cx('detail')}>
 

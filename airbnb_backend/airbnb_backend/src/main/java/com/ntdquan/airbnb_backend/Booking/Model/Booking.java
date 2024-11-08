@@ -37,23 +37,7 @@ public class Booking {
 	private String requestId;
 	private Integer guests;
 
-	public Booking(Long id, Homestay homestay, User user, Integer bookingStatus, LocalDate checkinDate,
-			LocalDate checkoutDate, BigDecimal nightlyPrice, BigDecimal serviceFee, BigDecimal discount,
-			BigDecimal totalPrice, String note, String requestId, Integer guests) {
-		super();
-		this.id = id;
-		this.homestay = homestay;
-		this.user = user;
-		this.bookingStatus = bookingStatus;
-		this.checkinDate = checkinDate;
-		this.checkoutDate = checkoutDate;
-		this.nightlyPrice = nightlyPrice;
-		this.serviceFee = serviceFee;
-		this.discount = discount;
-		this.totalPrice = totalPrice;
-		this.note = note;
-		this.requestId = requestId;
-		this.guests = guests;
+	public Booking() {
 	}
 
 	public Booking(Homestay homestay, User user, Integer bookingStatus, LocalDate checkinDate, LocalDate checkoutDate,

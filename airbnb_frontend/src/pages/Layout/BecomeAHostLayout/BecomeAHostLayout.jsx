@@ -48,7 +48,7 @@ const BecomeAHostLayout = () => {
           setFooterTitle('Next');
           setFooterOnClick(() => async () => {
             try {
-              await homestayService.editHomestayDetail(id, { geometry: childData.category });
+              await homestayService.editHomestayDetail(id, { type: childData.category });
               console.log('Structure updated for ID:', id);
               navigate(`/become-a-host/${id}/location`);
             } catch (error) {
@@ -222,9 +222,9 @@ const BecomeAHostLayout = () => {
   }, [location.pathname, childData, navigate]);
 
   return (
-    <div className={cx('wrapper')}>
+    <div className="flex flex-col">
       <CreateHomestayHeader/>
-      <div className={cx('content')}>
+      <div>
         <Outlet context={{ handleChildData }}/>
       </div>
       <CreateHomestayFooter title={footerTitle} onClick={footerOnClick}/>

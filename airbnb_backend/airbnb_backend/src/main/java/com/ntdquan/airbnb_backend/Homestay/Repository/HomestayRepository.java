@@ -14,7 +14,7 @@ import com.ntdquan.airbnb_backend.user.model.User;
 
 @Repository
 public interface HomestayRepository extends JpaRepository<Homestay, Long> {
-	@Query("SELECT h FROM Homestay h WHERE h.hostID = :hostID")
+	@Query("SELECT h FROM Homestay h WHERE h.hostID.id = :hostID")
 	List<Homestay> findByHostID(@Param("hostID") Long hostID);
 
 	Optional<Homestay> findById(Long id);
