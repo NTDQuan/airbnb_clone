@@ -70,6 +70,14 @@ const homestayService = {
             console.error('Error fetching homestay info:', error);
             throw error;
         }
+    },
+
+    bookHomestay: async (reservationRequest) => {
+        try {
+            await axiosInstance.post('/bookings', reservationRequest);
+        } catch (error) {
+            console.error('Failed to create reservation')
+        }
     }
 };
 

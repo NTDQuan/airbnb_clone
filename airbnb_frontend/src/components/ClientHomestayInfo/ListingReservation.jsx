@@ -2,8 +2,9 @@ import React from 'react'
 
 import Calendar from '../Input/Calendar';
 import Button from '../Button/button'
+import GuestPicker from './GuestPicker/GuestPicker';
 
-const ListingReservation = ({ price, dateRange, totalPrice, onChangeDate, onSubmit, disabled, disabledDates }) => {
+const ListingReservation = ({ price, dateRange, totalPrice, onChangeDate, onSubmit, disabled, disabledDates, adults, children, setAdults, setChildren }) => {
   return (
     <div
         className='
@@ -22,7 +23,7 @@ const ListingReservation = ({ price, dateRange, totalPrice, onChangeDate, onSubm
         p-4
       '>
         <div className='text-2xl font-semibold'>
-            $ 1000
+          {price}$
         </div>
         <div className='font-light text-neutral-600'>
             night
@@ -35,6 +36,10 @@ const ListingReservation = ({ price, dateRange, totalPrice, onChangeDate, onSubm
         onChange={(value) => onChangeDate(value.selection)}
       />
       <hr/>
+      <div className='p-4'>
+        <GuestPicker adults={adults} children={children} setAdults={setAdults} setChildren={setChildren} />
+      </div>
+      <hr/> 
       <div className='p-4'>
         <Button
           disabled={disabled}

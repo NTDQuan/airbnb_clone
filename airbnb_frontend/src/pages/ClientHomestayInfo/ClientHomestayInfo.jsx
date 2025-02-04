@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+import { useLoaderData } from 'react-router-dom';
 import Container from '../Container/Container'
 import ClientHomestayInfoHeading from '../../components/ClientHomestayInfo/ClientHomestayInfoHeading'
 import ClientHomestayInfo from '../../components/ClientHomestayInfo/ClientHomestayInfo'
@@ -7,6 +9,7 @@ import { differenceInDays, eachDayOfInterval } from "date-fns"
 import { useNavigate } from 'react-router-dom'
 import useUserData from '../../hooks/useUserData'
 import ListingReservation from '../../components/ClientHomestayInfo/ListingReservation'
+import homestayService from '../../service/ListingService'
 
 const initialDateRange = {
   startDate: new Date(),
@@ -15,10 +18,16 @@ const initialDateRange = {
 }
 
 const HomestayInfo = ({ reservation = [] }) => {
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+
+  const totalGuests = adults + children;
+
+  const homestayData = useLoaderData();
   const loginModal = useLoginModal();
   const navigation = useNavigate();
-  const { currentUser } = useUserData();
-  
+  const { user: currentUser } = useUserData();
+
   const disabledDates = useMemo(() => {
     let dates = [];
 
@@ -45,16 +54,37 @@ const HomestayInfo = ({ reservation = [] }) => {
 
     setIsLoading(true);
 
-    //TODO: set logic
+    try {
+      const reservationData = {
+        requestId: uuidv4(),
+        userId: currentUser.id,
+        homestayId: homestayData.id,
+        checkinDate: dateRange.startDate.toISOString().split('T')[0],
+        checkoutDate: dateRange.endDate.toISOString().split('T')[0],
+        guest: adults + children,
+        adultGuests: adults,
+        childGuests: children
+      };
+      console.log(reservationData)
+      //TODO: create reservation
+
+      homestayService.bookHomestay(reservationData);
+      
+    } catch (error) {
+      console.error('Failed to create reservation:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [
     totalPrice,
     dateRange,
     navigation,
     currentUser,
-    loginModal
+    loginModal,
+    homestayData,
+    adults, 
+    children
   ])
-
-
 
   return (
     <Container>
@@ -78,13 +108,17 @@ const HomestayInfo = ({ reservation = [] }) => {
               md:col-span-3
             '>
               <ListingReservation
-                price={1000}
+                price={homestayData.defaultPrice}
                 totalPrice={10000}
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
                 onSubmit={onCreateReservation}
                 disabled={isLoading}
                 disabledDates={disabledDates}
+                adults={adults} 
+                children={children} 
+                setAdults={setAdults} 
+                setChildren={setChildren} 
               />
             </div>
           </div>

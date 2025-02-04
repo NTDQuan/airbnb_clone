@@ -10,7 +10,6 @@ const NumberSelector = ({ defaultNumber, onNumberChange }) => {
   const [number, setNumber] = useState(defaultNumber);
 
   useEffect(() => {
-    console.log('fkir')
     onNumberChange(number);
   }, [number]);
 

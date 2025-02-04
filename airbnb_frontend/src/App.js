@@ -54,7 +54,10 @@ function App() {
           {index: true, element: <Home/>},
           {
             path: "/rooms/:id",
-            element: <ClientHomestayInfo/>
+            element: <ClientHomestayInfo/>,
+            loader: async ({ params }) => {
+              return homestayService.getHomestayInfo(params.id);
+            }
           }
         ]
       },
