@@ -30,4 +30,8 @@ public interface HomestayAvailabilityRepository extends JpaRepository<HomestayAv
 	
 	@Query("SELECT ha FROM HomestayAvailability ha WHERE ha.date < :today")
 	List<HomestayAvailability> findDateBeforeToday(LocalDate today);
+
+	@Query("SELECT ha.date FROM HomestayAvailability ha WHERE ha.availabilityStatus = 2 AND ha.homestay.id = :homestayId")
+	List<LocalDate> findUnavailabilityDates(@Param("homestayId") Long homestayId);
+
 }

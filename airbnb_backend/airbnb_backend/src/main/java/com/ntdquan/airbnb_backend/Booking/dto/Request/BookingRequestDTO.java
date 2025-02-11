@@ -1,4 +1,4 @@
-package com.ntdquan.airbnb_backend.Booking.dto.Resquest;
+package com.ntdquan.airbnb_backend.Booking.dto.Request;
 
 import java.time.LocalDate;
 

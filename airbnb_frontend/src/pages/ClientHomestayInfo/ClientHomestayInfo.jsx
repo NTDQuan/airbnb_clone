@@ -18,34 +18,77 @@ const initialDateRange = {
 }
 
 const HomestayInfo = ({ reservation = [] }) => {
-  const [adults, setAdults] = useState(1);
-  const [children, setChildren] = useState(0);
-
-  const totalGuests = adults + children;
-
   const homestayData = useLoaderData();
   const loginModal = useLoginModal();
   const navigation = useNavigate();
   const { user: currentUser } = useUserData();
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [totalPrice, setTotalPrice] = useState();
+  const [dateRange, setDateRange] = useState(initialDateRange)
+  const [isSelfBooked, setIsSelfBooked] = useState(false);
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [bookedDates, setBookedDates] = useState([]);
+
+  const totalGuests = adults + children;
+
+  useEffect(() => {
+    if (!currentUser || !homestayData?.id) return;
+  
+    const fetchSelfBookingStatus = async () => {
+      try {
+        const result = await homestayService.checkSelfBooked(homestayData.id, currentUser.id);
+        console.log(result)
+        if (result.code == 200) {
+          setIsSelfBooked(true);
+        } else {
+          setIsSelfBooked(false);
+        }
+      } catch (error) {
+        console.error("Error checking self booking:", error);
+      }
+    };
+  
+    fetchSelfBookingStatus();
+  }, [currentUser, homestayData]);
+    
+  useEffect(() => {
+    if (!homestayData?.id) return;
+
+    const fetchBookedDates = async () => {
+      try {
+        const result = await homestayService.getBookedDate(homestayData.id);
+        console.log(result)
+        setBookedDates(result);
+      } catch (error) {
+        console.error("Error fetching booked dates:", error);
+      }
+    };
+
+    fetchBookedDates();
+    
+  }, [homestayData]);
+
   const disabledDates = useMemo(() => {
     let dates = [];
-
+  
     reservation.forEach((reservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate)
       });
-
-      dates = [ ...dates, ...range];
+      dates = [...dates, ...range];
     });
-
+  
+    if (bookedDates.length > 0) {
+      const bookedRanges = bookedDates.map(date => new Date(date));
+      dates = [...dates, ...bookedRanges];
+    }
+  
     return dates;
-  }, [reservation])
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [totalPrice, setTotalPrice] = useState();
-  const [dateRange, setDateRange] = useState(initialDateRange)
+  }, [reservation, bookedDates]);
+    
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -66,14 +109,19 @@ const HomestayInfo = ({ reservation = [] }) => {
         childGuests: children
       };
       console.log(reservationData)
-      //TODO: create reservation
 
-      homestayService.bookHomestay(reservationData);
-      
+      homestayService.bookHomestay(reservationData)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Failed to create reservation:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     } catch (error) {
       console.error('Failed to create reservation:', error);
-    } finally {
-      setIsLoading(false);
     }
   }, [
     totalPrice,
@@ -113,7 +161,7 @@ const HomestayInfo = ({ reservation = [] }) => {
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
                 onSubmit={onCreateReservation}
-                disabled={isLoading}
+                disabled={isLoading || isSelfBooked == true}
                 disabledDates={disabledDates}
                 adults={adults} 
                 children={children} 

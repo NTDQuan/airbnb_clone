@@ -95,10 +95,10 @@ const LoginModal = () => {
         <div className={cx('to-login-container')}>
           <div className={cx('to-login-content')}>
             <div>
-              Đã có tài khoản ?
+              Chưa có tài khoản ?
             </div>
             <div className={cx('to-login-text')} onClick={registerModal.onClose}>
-              Đăng nhập
+              Đăng ký
             </div>
           </div>
         </div>

@@ -1,9 +1,14 @@
 package com.ntdquan.airbnb_backend.Homestay.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayCardDTO;
+import com.ntdquan.airbnb_backend.Homestay.Mapper.Mapper;
 import com.ntdquan.airbnb_backend.user.Service.UserService;
 import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +33,22 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class HomestayService {
+    private static final DateTimeFormatter INPUTFORMATTER = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss 'GMT'Z (z)");
+    private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	private final HomestayRepository homestayRepository;
 	private final AmenityRepository amenityRepository;
 	private final AvailabilityService availabilityService;
     private final UserService userService;
+    private final Mapper mapper;
 	
 	@Autowired
-	public HomestayService(HomestayRepository homestayRepository, AmenityRepository amenityRepository, AvailabilityService availabilityService, UserService userService) {
+	public HomestayService(HomestayRepository homestayRepository, AmenityRepository amenityRepository, AvailabilityService availabilityService, UserService userService, Mapper mapper) {
 		this.homestayRepository = homestayRepository;
 		this.amenityRepository = amenityRepository;
 		this.availabilityService = availabilityService;
         this.userService = userService;
+        this.mapper = mapper;
 	}
 	
     public Homestay getHomestayById(Long id) {
@@ -105,7 +115,38 @@ public class HomestayService {
         Long hostID = (Long) jwt.getClaims().get("userId");
         return homestayRepository.findByHostID(hostID);
     }
-	
+
+    public List<HomestayCardDTO> searchHomestayByFilter(String category,
+                                                 String locationValue,
+                                                 Integer guestCount,
+                                                 String startDate,
+                                                 String endDate) {
+        LocalDate start = null;
+        LocalDate end = null;
+
+        try {
+            if (startDate != null) {
+                start = LocalDate.parse(startDate, INPUTFORMATTER);
+                startDate = start.format(OUTPUTFORMATTER); // Convert to yyyy-MM-dd
+            }
+            if (endDate != null) {
+                end = LocalDate.parse(endDate, INPUTFORMATTER);
+                endDate = end.format(OUTPUTFORMATTER); // Convert to yyyy-MM-dd
+            }
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date: " + e.getMessage());
+        }
+
+        List<Homestay> result = homestayRepository.searchHomestayByFilter(category, locationValue, guestCount, start, end);
+
+        List<HomestayCardDTO> homestayCardDTOs = result.stream()
+                .map(mapper::convertToHomestayCardDTO)
+                .collect(Collectors.toList());
+
+
+        return homestayCardDTOs;
+    }
+
 	public HomestayListResponseDTO convertToResponseDTO(Homestay homestay) {
 		HomestayListResponseDTO dto = new HomestayListResponseDTO();
 		dto.setId(homestay.getId());

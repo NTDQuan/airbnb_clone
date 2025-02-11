@@ -7,6 +7,7 @@ import ToastProvider from '../../../providers/ToastProvider'
 import LoginModal from '../../../components/Modal/LoginModal/LoginModal'
 import { Outlet } from 'react-router-dom'
 import CategoryFilter from '../../../components/CategoryFilter/CategoryFilter'
+import SearchModal from '../../../components/Modal/SearchModal'
 
 const cx = classNames.bind(styles)
 
@@ -14,6 +15,7 @@ const DefaultLayout = ({ children, currentUser }) => {
   return (
     <div>
         <LoginModal/>
+        <SearchModal/>
         <ToastProvider/>
         <RegisterModal/>
         <HomeHeader currentUser={currentUser}/>

@@ -3,11 +3,13 @@ package com.ntdquan.airbnb_backend.Booking.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ntdquan.airbnb_backend.Booking.dto.Request.CheckBookedRequestDTO;
+import com.ntdquan.airbnb_backend.Booking.repository.HomestayAvailabilityRepository;
 import org.springframework.stereotype.Service;
 
 import com.ntdquan.airbnb_backend.Booking.dto.Response.BookingPrice;
 import com.ntdquan.airbnb_backend.Booking.dto.Response.BookingResponse;
-import com.ntdquan.airbnb_backend.Booking.dto.Resquest.BookingRequestDTO;
+import com.ntdquan.airbnb_backend.Booking.dto.Request.BookingRequestDTO;
 import com.ntdquan.airbnb_backend.Booking.mapper.BookingMapper;
 import com.ntdquan.airbnb_backend.Booking.model.Booking;
 import com.ntdquan.airbnb_backend.Booking.model.HomestayAvailability;
@@ -21,7 +23,6 @@ import com.ntdquan.airbnb_backend.constant.HomestayStatusEnum;
 import com.ntdquan.airbnb_backend.system.exception.BusinessException;
 import com.ntdquan.airbnb_backend.user.Service.UserService;
 import com.ntdquan.airbnb_backend.user.model.User;
-import com.ntdquan.airbnb_backend.user.repositiory.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -34,6 +35,7 @@ public class BookingService {
 	private final BookingRepository bookingRepository;
 	private final UserService userService;
 	private final HomestayRepository homestayRepository;
+	private final HomestayAvailabilityRepository availabilityRepository;
 	private final AvailabilityService availabilityService;
 	private final HomestayService homestayService;
 	private final PricingService pricingService;
@@ -41,7 +43,8 @@ public class BookingService {
 
 	public BookingService(BookingRepository bookingRepository, UserService userService,
 			HomestayRepository homestayRepository, AvailabilityService availabilityService,
-			HomestayService homestayService, PricingService pricingService, BookingMapper mapper) {
+			HomestayService homestayService, PricingService pricingService, HomestayAvailabilityRepository availabilityRepository,
+			BookingMapper mapper) {
 		super();
 		this.bookingRepository = bookingRepository;
 		this.userService = userService;
@@ -49,6 +52,7 @@ public class BookingService {
 		this.availabilityService = availabilityService;
 		this.homestayService = homestayService;
 		this.pricingService = pricingService;
+		this.availabilityRepository = availabilityRepository;
 		this.mapper = mapper;
 	}
 
@@ -123,5 +127,32 @@ public class BookingService {
 			throw new BusinessException("Guests invalid");
 		}
 	}
-	
+
+	public boolean checkBooked(final CheckBookedRequestDTO request) {
+		Homestay homestay = homestayService.getHomestayById(request.getHomestayId());
+		User user = userService.getUserById(request.getUserId());
+
+		if (homestay == null) {
+			throw new BusinessException("homestay not found");
+		}
+
+		List<Booking> overlappingBookings = bookingRepository.checkBooked(
+				homestay.getId(),
+				user.getId(),
+				BookingStatusEnum.BOOKED.getValue()
+		);
+
+		return !overlappingBookings.isEmpty();
+	}
+
+	public List<LocalDate> getUnavailableDate(final Long homestayId) {
+		log.info("getUnavailableDate start");
+		Homestay homestay = homestayService.getHomestayById(homestayId);
+
+		if (homestay == null) {
+			throw new BusinessException("Homestay not found");
+		}
+
+		return availabilityRepository.findUnavailabilityDates(homestayId);
+	}
 }

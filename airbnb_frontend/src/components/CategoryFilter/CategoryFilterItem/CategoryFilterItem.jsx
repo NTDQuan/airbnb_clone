@@ -1,14 +1,43 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types';
 import styles from './CategoryFilterItem.module.scss'
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import qs from 'query-string'
 
 const cx = classNames.bind(styles)
 
-const CategoryFilterItem = ({label, icon : Icon, selected, onClick}) => {
+const CategoryFilterItem = ({label, icon : Icon, selected}) => {
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+
+  const handleClick = useCallback(() => {
+    let currentQuery = {};
+
+    if (params) {
+      currentQuery = qs.parse(params.toString());
+    }
+
+    const updatedQuery = {
+      ...currentQuery,
+      category: label
+    }
+
+    if (params.get('category') === label) {
+      delete updatedQuery.category;
+    }
+
+    const url = qs.stringifyUrl({
+      url: '/',
+      query: updatedQuery
+    }, { skipNull: true })
+
+    navigate(url);
+  }, [label, params, navigate]);
+
   return (
     <div 
-      onClick={onClick} 
+      onClick={handleClick} 
       className={`
         flex
         flex-col

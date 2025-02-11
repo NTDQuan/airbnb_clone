@@ -78,6 +78,39 @@ const homestayService = {
         } catch (error) {
             console.error('Failed to create reservation')
         }
+    },
+
+    checkSelfBooked: async (homestayId, userId) => {
+        try {
+            const response = await axiosInstance.get(`/bookings/check/${userId}/${homestayId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error checking booking:', error);
+            throw error;
+        }
+    },
+
+    getBookedDate: async (homestayId) => {
+        try {
+            const response = await axiosInstance.get(`/bookings/unavailabledates/${homestayId}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching homestay info:', error);
+            throw error;
+        }
+    },
+
+    searchFilteredHomestayCard: async (filter) => {
+        try {
+            const response = await axiosInstance.get(`/homestay/public/search`, { params: filter });
+            console.log('Request URL:', `/homestay/public/search?${new URLSearchParams(filter).toString()}`);
+            console.log('API called')
+            console.log(response)
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching homestay card:', error);
+            throw error;
+        }
     }
 };
 

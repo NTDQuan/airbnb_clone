@@ -27,8 +27,14 @@ import Price from './pages/CreateHomestay/Price/Price';
 import Receipt from './pages/CreateHomestay/Receipt/Receipt';
 import Home from './pages/Home/Home';
 import ClientHomestayInfo from './pages/ClientHomestayInfo/ClientHomestayInfo';
+import useAuthCheck from './hooks/useAuthCheck';
 
 function App() {
+    function AuthCheckWrapper({ children }) {
+      useAuthCheck();
+      return children;
+    }
+
     const authUser = useUserData();
     const [currentUser, setCurrentUser] = useState(null);
   
@@ -101,7 +107,10 @@ function App() {
       }
     ]);
   
-    return <RouterProvider router={router} />;
+    return  <RouterProvider router={router}>
+                <AuthCheckWrapper>                
+                </AuthCheckWrapper>
+            </RouterProvider>;
   }
 
 export default App;

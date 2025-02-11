@@ -5,25 +5,52 @@ import EmptyState from '../../components/EmptyState/EmptyState';
 import Container from '../../components/Container/Container';
 import homestayService from '../../service/ListingService';
 import ListingCard from '../../components/ListingCard/ListingCard';
+import useCountries from '../../hooks/useCountry';
+
+import { useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 
 const Home = () => {
   const [homestayList, setHomestayList] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [params] = useSearchParams();
+
+  const { getByValues } = useCountries();
+
+  console.log("searchParams:", params);
+  console.log("category:", params.get("category"));
+
+  const category = params.get('category');
+  const locationValue = params.get('locationValue');
+  const startDate = params.get('startDate');
+  const endDate = params.get('endDate');
+  const guestCount = params.get('guestCount');
 
   useEffect(() => {
-    try {
-      const getHomestayList = async () => {
-        const response = await homestayService.getAllHomestayCard();
-        setHomestayList(response);
-        console.log(response)
+    const getHomestayList = async () => {
+      try {
+        setLoading(true);
+
+        const filter = {
+          category: category || null,
+          locationValue: getByValues(locationValue).label || null,
+          startDate: startDate || null,
+          endDate: endDate || null,
+          guestCount: guestCount || null,
+        };
+
+        const response = await homestayService.searchFilteredHomestayCard(filter);
+        setHomestayList(response || []);
+      } catch (error) {
+        console.error('Error fetching homestay list:', error);
+      } finally {
+        setLoading(false);
       }
-      getHomestayList();
-    } catch (error) {
-      console.log(error)
     }
-  }, [])
+    getHomestayList()
+  }, [category, locationValue, startDate, endDate, guestCount])
 
   if (homestayList.length === 0) {
     return (

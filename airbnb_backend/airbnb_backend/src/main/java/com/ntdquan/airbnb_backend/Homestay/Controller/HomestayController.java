@@ -11,14 +11,7 @@ import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayCardDTO;
 import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayListResponseDTO;
@@ -105,6 +98,17 @@ public class HomestayController {
 		else {
 			return new Result(false, StatusCode.NOT_FOUND, "Not found");
 		}
+	}
+
+	@GetMapping("/public/search")
+	public Result searchHomestayByFilter(@RequestParam(required = false) String category,
+										 @RequestParam(required = false) String locationValue,
+										 @RequestParam(required = false) Integer guestCount,
+										 @RequestParam(required = false) String startDate,
+										 @RequestParam(required = false) String endDate) {
+		List<HomestayCardDTO> result = homestayService.searchHomestayByFilter(category, locationValue, guestCount, startDate,
+																		endDate);
+		return new Result(true, StatusCode.SUCCESS, "Find all success", result);
 	}
 	
 }
