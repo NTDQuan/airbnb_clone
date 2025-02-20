@@ -2,15 +2,16 @@ import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './HeartButton.module.scss'
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import useFavourite from '../../hooks/useFavourite';
 
 const cx = classNames.bind(styles)
 
 const HeartButton = ({ listingId, currentUser }) => {
-  const hasFavorited = false;
-  const toggleFavorite = () => {};
+  const { hasFavourited, toggleFavourite } = useFavourite({ currentUser, listingId });
 
   return (
     <div 
+      onClick={toggleFavourite}
       className='
         relative
         hover-opacity-80
@@ -30,7 +31,7 @@ const HeartButton = ({ listingId, currentUser }) => {
       <AiFillHeart 
         size={24} 
         className={
-          hasFavorited ? 'fill-rose-500' : 'fill-neutral-500/70'
+          hasFavourited ? 'fill-rose-500' : 'fill-neutral-500/70'
         }
       />
     </div>

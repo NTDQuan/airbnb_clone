@@ -8,7 +8,7 @@ public class BookingResponse {
 	private Long homestayId;
 	private String checkinDate;
 	private String checkoutDate;
-	private Integer adaultGuests;
+	private Integer adultGuests;
 	private Integer childGuests;
 	private Integer status;
 	private BigDecimal nightlyPrice;
@@ -20,15 +20,15 @@ public class BookingResponse {
 	}
 
 	public BookingResponse(Long bookingId, Long userId, Long homestayId, String checkinDate, String checkoutDate,
-			Integer adaultGuests, Integer childGuests, Integer status, BigDecimal nightlyPrice, BigDecimal serviceFee,
-			BigDecimal totalPrice) {
+						   Integer adultGuests, Integer childGuests, Integer status, BigDecimal nightlyPrice, BigDecimal serviceFee,
+						   BigDecimal totalPrice) {
 		super();
 		this.bookingId = bookingId;
 		this.userId = userId;
 		this.homestayId = homestayId;
 		this.checkinDate = checkinDate;
 		this.checkoutDate = checkoutDate;
-		this.adaultGuests = adaultGuests;
+		this.adultGuests = adultGuests;
 		this.childGuests = childGuests;
 		this.status = status;
 		this.nightlyPrice = nightlyPrice;
@@ -76,12 +76,12 @@ public class BookingResponse {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public Integer getAdaultGuests() {
-		return adaultGuests;
+	public Integer getAdultGuests() {
+		return adultGuests;
 	}
 
-	public void setAdaultGuests(Integer adaultGuests) {
-		this.adaultGuests = adaultGuests;
+	public void setAdultGuests(Integer adultGuests) {
+		this.adultGuests = adultGuests;
 	}
 
 	public Integer getChildGuests() {

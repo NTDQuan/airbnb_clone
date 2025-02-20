@@ -2,12 +2,12 @@ import React from 'react'
 import Heading from '../Heading/Heading'
 import HeartButton from '../HeartButton/HeartButton'
 
-const ClientHomestayInfoHeading = ({ homestay }) => {
+const ClientHomestayInfoHeading = ({ name, country, city, image, id, currentUser }) => {
   return (
     <>
       <Heading
-        title="name"
-        subtitle='subtitle'
+        title={name}
+        subtitle={`${country}, ${city}`}
       />
       <div
         className='
@@ -23,11 +23,12 @@ const ClientHomestayInfoHeading = ({ homestay }) => {
                 object-cover
                 w-full
             '
-            src="https://placehold.co/600x400"
+            src={image ? image : "https://placehold.co/600x400"}
         />
         <div className='absolute top-5 right-5'>
             <HeartButton
-                
+              listingId={id} 
+              currentUser={currentUser}
             />
         </div>
       </div>

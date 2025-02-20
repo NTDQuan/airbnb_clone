@@ -13,6 +13,7 @@ public class HomestayInfoDTO {
     private String city;
     private String province;
     private String country;
+    private String description;
     private int status;
     private int maxGuests;
     private int bedRoomNum;
@@ -21,10 +22,12 @@ public class HomestayInfoDTO {
     private String type;
     private boolean reservation;
     private BigDecimal defaultPrice;
+    private String image;
+    private Long ownerId;
 
     public HomestayInfoDTO() {}
 
-    public HomestayInfoDTO(Long id, String name, String address, Double latitude, Double longitude, String geometry, String street, String city, String province, String country, int status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type, boolean reservation, BigDecimal defaultPrice) {
+    public HomestayInfoDTO(Long id, String name, String address, Double latitude, Double longitude, String geometry, String street, String city, String province, String country, int status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type, boolean reservation, BigDecimal defaultPrice, String image, String description, Long ownerId) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -43,6 +46,9 @@ public class HomestayInfoDTO {
         this.type = type;
         this.reservation = reservation;
         this.defaultPrice = defaultPrice;
+        this.image = image;
+        this.ownerId = ownerId;
+        this.description = description;
     }
 
     public Long getId() {
@@ -187,5 +193,29 @@ public class HomestayInfoDTO {
 
     public void setDefaultPrice(BigDecimal defaultPrice) {
         this.defaultPrice = defaultPrice;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

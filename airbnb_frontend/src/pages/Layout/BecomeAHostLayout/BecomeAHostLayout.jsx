@@ -122,6 +122,18 @@ const BecomeAHostLayout = () => {
           console.log('photos')
           setFooterTitle('Next');
           setFooterOnClick(() => async () => {
+            try {
+              console.log('update')
+              console.log({ amenities: childData.amenities })
+              await homestayService.editHomestayDetail(id, {
+                image: childData.image,
+              });
+              console.log(childData)
+              console.log('Amenities updated for ID:', id);
+              navigate(`/become-a-host/${id}/photos`);
+            } catch (error) {
+              console.error('Error updating amenities', error);
+            }
             navigate(`/become-a-host/${id}/title`);
           })
           break;

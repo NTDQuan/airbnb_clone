@@ -28,6 +28,9 @@ import Receipt from './pages/CreateHomestay/Receipt/Receipt';
 import Home from './pages/Home/Home';
 import ClientHomestayInfo from './pages/ClientHomestayInfo/ClientHomestayInfo';
 import useAuthCheck from './hooks/useAuthCheck';
+import Trips from './pages/Trips';
+import HostReservation from './pages/HostReservation';
+import Favourites from './pages/Favourites';
 
 function App() {
     function AuthCheckWrapper({ children }) {
@@ -64,6 +67,14 @@ function App() {
             loader: async ({ params }) => {
               return homestayService.getHomestayInfo(params.id);
             }
+          },
+          {
+            path: "/trips",
+            element: <Trips/>
+          },
+          {
+            path: "/favourites",
+            element: <Favourites/>
           }
         ]
       },
@@ -71,10 +82,10 @@ function App() {
         path: "/hosting",
         element: <PrivateRoute><HostingLayout currentUser={currentUser} /></PrivateRoute>,
         children: [
-          { index: true, element: <HostingHome /> },
+          { index: true, element: <HostReservation /> },
           { path: "listings", element: <HostListing /> }
         ]
-      },
+      },,
       {
         path: "/become-a-host",
         element: <BecomeAHostLayout currentUser={currentUser} />,

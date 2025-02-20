@@ -20,6 +20,7 @@ public class DBDataInitializer implements CommandLineRunner {
         User u1 = new User();
         u1.setId((long)1);
         u1.setEmail("admin@admin.com");
+        u1.setName("admin");
         u1.setPassword("admin");
         this.userService.save(u1);
     }

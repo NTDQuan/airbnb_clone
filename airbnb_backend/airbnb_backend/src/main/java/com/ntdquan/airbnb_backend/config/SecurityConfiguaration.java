@@ -73,6 +73,7 @@ public class SecurityConfiguaration {
 						req->req.requestMatchers("/api/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/homestay/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/user/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/homestay/**").authenticated()
 						.requestMatchers("/api/**").authenticated()
 						.anyRequest().authenticated()
 				)

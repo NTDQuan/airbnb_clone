@@ -2,9 +2,13 @@ package com.ntdquan.airbnb_backend.Homestay.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.ntdquan.airbnb_backend.Homestay.DTO.HomestayInfoDTO;
+import com.ntdquan.airbnb_backend.Homestay.Model.FavouriteHomestay;
+import com.ntdquan.airbnb_backend.Homestay.Repository.FavouriteHomestayRepository;
+import com.ntdquan.airbnb_backend.Homestay.Service.FavouriteService;
 import com.ntdquan.airbnb_backend.system.Result;
 import com.ntdquan.airbnb_backend.system.StatusCode;
 import com.ntdquan.airbnb_backend.user.auth.MyUserPrincipal;
@@ -27,15 +31,20 @@ import com.ntdquan.airbnb_backend.user.model.User;
 @RequestMapping("/api/homestay")
 public class HomestayController {
 	private final HomestayService homestayService;
+	private final FavouriteService favouriteService;
 	private final JwtService jwtService;
 	private final Mapper mapper;
 	
 	@Autowired
-	public HomestayController(HomestayService homestayService, JwtService jwtService, Mapper mapper) {
+	public HomestayController(HomestayService homestayService,
+							  JwtService jwtService,
+							  Mapper mapper,
+							  FavouriteService favouriteService) {
 		super();
 		this.homestayService = homestayService;
 		this.jwtService = jwtService;
 		this.mapper = mapper;
+		this.favouriteService = favouriteService;
 	}
 	
 	@GetMapping("/listing")
@@ -109,6 +118,24 @@ public class HomestayController {
 		List<HomestayCardDTO> result = homestayService.searchHomestayByFilter(category, locationValue, guestCount, startDate,
 																		endDate);
 		return new Result(true, StatusCode.SUCCESS, "Find all success", result);
+	}
+
+	@GetMapping("/favourite")
+	public Result getFavouriteHomestay() {
+		Set<HomestayCardDTO> result = favouriteService.getFavouriteHomestays();
+		return new Result(true, StatusCode.SUCCESS, "Find all favourite success", result);
+	}
+
+	@PostMapping("/favourite/add/{homestayId}")
+	public Result addFavouriteHomestay(@PathVariable Long homestayId) {
+		FavouriteHomestay favouriteHomestay = favouriteService.addFavouriteHomestay(homestayId);
+		return new Result(true, StatusCode.SUCCESS, "Add favourite success", favouriteHomestay);
+	}
+
+	@DeleteMapping("/favourite/remove/{homestayId}")
+	public Result removeFavouriteHomestay(@PathVariable Long homestayId) {
+		favouriteService.removeFavouriteHomestay(homestayId);
+		return new Result(true, StatusCode.SUCCESS, "Remove favourite success");
 	}
 	
 }

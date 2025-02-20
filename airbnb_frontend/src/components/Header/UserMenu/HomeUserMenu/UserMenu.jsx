@@ -95,11 +95,15 @@ const UserMenu = ({ currentUser }) => {
                   label="Thông báo"
                 />
                 <MenuItem
-                  onClick={() => {}}
+                  onClick={() => {
+                    navigate('/trips')
+                  }}
                   label="Chuyến đi"
                 />
                 <MenuItem
-                  onClick={() => {}}
+                  onClick={() => {
+                    navigate('/favourites')
+                  }}
                   label="Danh sách yêu thích"
                 />
                 <hr />

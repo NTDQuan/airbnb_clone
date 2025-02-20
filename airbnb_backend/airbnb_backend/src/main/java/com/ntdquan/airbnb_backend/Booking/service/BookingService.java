@@ -2,9 +2,13 @@ package com.ntdquan.airbnb_backend.Booking.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.ntdquan.airbnb_backend.Booking.dto.Request.CheckBookedRequestDTO;
 import com.ntdquan.airbnb_backend.Booking.repository.HomestayAvailabilityRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.ntdquan.airbnb_backend.Booking.dto.Response.BookingPrice;
@@ -154,5 +158,37 @@ public class BookingService {
 		}
 
 		return availabilityRepository.findUnavailabilityDates(homestayId);
+	}
+
+	public List<BookingResponse> getReservation() {
+		log.info("getReservation");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		Jwt jwt = (Jwt) authentication.getPrincipal();
+		Long userId = (Long) jwt.getClaims().get("userId");
+
+		List<Booking> bookingLists = bookingRepository.findBookingByUserId(userId);
+
+		List<BookingResponse> bookingResponses = bookingLists.stream()
+				.map(mapper::toResponse)
+				.collect(Collectors.toList());
+
+		return bookingResponses;
+	}
+
+	public List<BookingResponse> getHostingReservation() {
+		log.info("getHostingReservation");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Jwt jwt = (Jwt) authentication.getPrincipal();
+		Long userId = (Long) jwt.getClaims().get("userId");
+
+		List<Homestay> ownedHomestays = homestayRepository.findByHostID(userId);
+		List<Long> homestayIds = ownedHomestays.stream().map(Homestay::getId).collect(Collectors.toList());
+
+		List<Booking> hostingBookings = bookingRepository.findBookingByHomestayId(homestayIds);
+
+		return hostingBookings.stream()
+				.map(mapper::toResponse)
+				.collect(Collectors.toList());
 	}
 }

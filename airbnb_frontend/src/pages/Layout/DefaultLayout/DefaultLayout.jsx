@@ -20,7 +20,7 @@ const DefaultLayout = ({ children, currentUser }) => {
         <RegisterModal/>
         <HomeHeader currentUser={currentUser}/>
         <div className="pb-20 pt-[181px]">
-          <Outlet/>
+          <Outlet context={{ currentUser }}/>
         </div>
         
     </div>

@@ -11,6 +11,8 @@ import useUserData from '../../hooks/useUserData'
 import ListingReservation from '../../components/ClientHomestayInfo/ListingReservation'
 import homestayService from '../../service/ListingService'
 
+import { category } from '../../assets/data/CategoryData';
+
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
@@ -30,6 +32,9 @@ const HomestayInfo = ({ reservation = [] }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [bookedDates, setBookedDates] = useState([]);
+
+  console.log(homestayData);
+  console.log(currentUser);
 
   const totalGuests = adults + children;
 
@@ -139,7 +144,12 @@ const HomestayInfo = ({ reservation = [] }) => {
       <div className='max-w-screen-lg mx-auto'>
         <div className='flex flex-col gap-6'>
           <ClientHomestayInfoHeading
-            
+            name = {homestayData.name}
+            country={homestayData.country}
+            city={homestayData.city}
+            image={homestayData.image}
+            id={homestayData.id}
+            currentUser={currentUser}
           />
           <div className='
             grid
@@ -148,7 +158,14 @@ const HomestayInfo = ({ reservation = [] }) => {
             md:gap-10
             mt-6
           '>
-            <ClientHomestayInfo/>
+            <ClientHomestayInfo
+              user={currentUser}
+              description={homestayData.description}
+              guestCount={homestayData.maxGuests}
+              roomCount={homestayData.bedRoomNum}
+              bathroomCount={homestayData.bathRoomNum}
+              category={homestayData.type}
+            />
             <div className='
               order-first
               mb-10

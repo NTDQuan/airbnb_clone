@@ -1,13 +1,12 @@
 package com.ntdquan.airbnb_backend.user.Controller;
 
+import com.ntdquan.airbnb_backend.system.Result;
+import com.ntdquan.airbnb_backend.system.StatusCode;
+import com.ntdquan.airbnb_backend.user.DTO.UserInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ntdquan.airbnb_backend.user.DTO.UserDTO;
 import com.ntdquan.airbnb_backend.user.Service.UserService;
@@ -26,6 +25,11 @@ public class UserController {
 	private JwtService jwtService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
+	@GetMapping("/{userId}")
+	public Result getUserInfo(@PathVariable Long userId) {
+		UserInfoDTO userInfo = userService.getUserInfoById(userId);
+		return new Result(true, StatusCode.SUCCESS, "Get user info", userInfo);
+	}
 
 }

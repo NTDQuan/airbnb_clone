@@ -2,7 +2,7 @@ import React from 'react'
 import Avatar from '../Header/UserMenu/Avatar/Avatar'
 import ListingCategory from './ListingCategory'
 
-const ClientHomestayInfo = () => {
+const ClientHomestayInfo = ({user, description, guestCount, roomCount, bathroomCount, category}) => {
   return (
     <div className='col-span-4 flex flex-col gap-8'>
         <div className='flex flex-col gap-2'>
@@ -15,7 +15,7 @@ const ClientHomestayInfo = () => {
                 gap-2
             '    
             >
-                <div>Hosted by admin</div>
+                <div>Hosted by {user?.username}</div>
                 <Avatar/>
             </div>
             <div className='
@@ -27,23 +27,25 @@ const ClientHomestayInfo = () => {
                 text-neutral-500
             '>
                 <div>
-                    2 guest
+                    {guestCount} guests
                 </div>
                 <div>
-                    2 rooms
+                    {roomCount} rooms
                 </div>
                 <div>
-                    2 bathrooms
+                    {bathroomCount} bathrooms
                 </div>
             </div>
         </div>   
-        <hr/>
-        {/*<div className='*/}
         <hr/> 
-        <ListingCategory/>
+        {category && (
+            <ListingCategory
+                label={category}
+            /> 
+        )}
         <hr/>
         <div className='text-lg font-light text-neutral-500'>
-            Test description
+            {description}
         </div>
     </div>
   )

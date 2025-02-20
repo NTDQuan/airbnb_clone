@@ -14,6 +14,7 @@ public class Mapper {
 		dto.setId(homestay.getId());
 		dto.setAddress(homestay.getAddress());
 		dto.setName(homestay.getName());
+		dto.setImage(homestay.getImage());
 		return dto;
 	}
 	
@@ -25,6 +26,7 @@ public class Mapper {
 		dto.setDefaultPrice(homestay.getDefaultPrice());
 		dto.setCity(homestay.getCity());
 		dto.setCountry(homestay.getCountry());
+		dto.setImage(homestay.getImage());
 		return dto;
 	}
 
@@ -47,6 +49,9 @@ public class Mapper {
 		dto.setType(homestay.getType());
 		dto.setReservation(homestay.isReservation());
 		dto.setDefaultPrice(homestay.getDefaultPrice());
+		dto.setImage(homestay.getImage());
+		dto.setDescription(homestay.getDescription());
+		dto.setOwnerId(homestay.getHostID().getId());
 		return dto;
 	}
 }

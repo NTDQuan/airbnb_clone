@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Photo.module.scss'
 import Container from '../../Container/Container'
+import { useOutletContext } from 'react-router-dom';
 
 import Heading from '../../../components/Heading/Heading'
 import CreateHomestayFooter from '../../../components/Footer/CreateHomestayFooter/CreateHomestayFooter'
+import ImageUpload from '../../../components/ImageUpload'
 
 const cx = classNames.bind(styles)
 
 const Photo = () => {
+  const { handleChildData } = useOutletContext();
+
   return (
     <Container>
       <div className="
@@ -35,34 +39,7 @@ const Photo = () => {
             <div className="overflow-visible flex flex-col w-full items-center">
               <div className="overflow-y-auto w-full pr-2 -mr-2 md:pr-0 md:mr-0">
                 <div className="mb-4">
-                  <div className="
-                  rounded-lg 
-                  border-dashed 
-                  border 
-                  border-gray-400 
-                  bg-gray-100 
-                  flex 
-                  items-center 
-                  justify-center 
-                  w-full 
-                  h-[60vh] 
-                  flex-col
-                ">
-                    <button className="
-                    rounded-md 
-                    border 
-                    border-gray-900 
-                    bg-white 
-                    px-4 
-                    py-2 
-                    text-center 
-                    text-gray-900 
-                    font-medium 
-                    text-base
-                  ">
-                      Add photos
-                    </button>
-                  </div>
+                  <ImageUpload onChange={handleChildData}/>
                 </div>
               </div>
             </div>

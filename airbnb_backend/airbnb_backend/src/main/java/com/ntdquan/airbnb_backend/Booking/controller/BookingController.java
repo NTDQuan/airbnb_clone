@@ -51,4 +51,18 @@ public class BookingController {
 		List<LocalDate> result = bookingService.getUnavailableDate(homestayId);
 		return new Result(true, StatusCode.SUCCESS, "Unavailable date booking", result);
 	}
+
+	@GetMapping()
+	public Result getTrips() {
+		log.info("get trip bookings");
+		List<BookingResponse> result = bookingService.getReservation();
+		return new Result(true, StatusCode.SUCCESS, "Trip bookings", result);
+	}
+
+	@GetMapping("/reservation")
+	public Result getHostingReservation() {
+		log.info("get hosting reservation");
+		List<BookingResponse> result = bookingService.getHostingReservation();
+		return new Result(true, StatusCode.SUCCESS, "Hosting reservation", result);
+	}
 }

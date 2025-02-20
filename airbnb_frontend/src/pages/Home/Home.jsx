@@ -6,6 +6,7 @@ import Container from '../../components/Container/Container';
 import homestayService from '../../service/ListingService';
 import ListingCard from '../../components/ListingCard/ListingCard';
 import useCountries from '../../hooks/useCountry';
+import { useOutletContext } from 'react-router-dom';
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ const Home = () => {
   const [homestayList, setHomestayList] = useState([])
   const [loading, setLoading] = useState(true);
   const [params] = useSearchParams();
+  const { currentUser } = useOutletContext();
 
   const { getByValues } = useCountries();
 
@@ -35,7 +37,7 @@ const Home = () => {
 
         const filter = {
           category: category || null,
-          locationValue: getByValues(locationValue).label || null,
+          locationValue: getByValues(locationValue)?.label || null,
           startDate: startDate || null,
           endDate: endDate || null,
           guestCount: guestCount || null,
@@ -43,6 +45,7 @@ const Home = () => {
 
         const response = await homestayService.searchFilteredHomestayCard(filter);
         setHomestayList(response || []);
+        console.log(homestayList)
       } catch (error) {
         console.error('Error fetching homestay list:', error);
       } finally {
@@ -51,6 +54,7 @@ const Home = () => {
     }
     getHomestayList()
   }, [category, locationValue, startDate, endDate, guestCount])
+
 
   if (homestayList.length === 0) {
     return (
@@ -73,7 +77,7 @@ const Home = () => {
       '>
         {homestayList.map((homestay) => {
           return (
-            <ListingCard key={homestay.id} homestay={homestay}/>
+            <ListingCard key={homestay.id} homestay={homestay} currentUser={currentUser}/>
           )
         })}
       </div>

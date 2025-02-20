@@ -2,6 +2,8 @@ package com.ntdquan.airbnb_backend.user.Service;
 
 import java.util.Optional;
 
+import com.ntdquan.airbnb_backend.user.DTO.UserInfoDTO;
+import com.ntdquan.airbnb_backend.user.mapper.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserMapper userMapper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -44,6 +49,17 @@ public class UserService implements UserDetailsService {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
             return userOptional.get();
+        } else {
+            throw new EntityNotFoundException("User found with id: " + id);
+        }
+    }
+
+    public UserInfoDTO getUserInfoById(Long id) {
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserInfoDTO userInfo = userMapper.convertToUserInfoDTO(user);
+            return userInfo;
         } else {
             throw new EntityNotFoundException("User found with id: " + id);
         }

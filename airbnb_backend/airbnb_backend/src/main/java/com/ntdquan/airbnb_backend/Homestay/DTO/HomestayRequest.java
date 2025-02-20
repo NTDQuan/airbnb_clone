@@ -25,6 +25,7 @@ public class HomestayRequest {
 	private String type;
 	private Boolean reservation;
 	private BigDecimal defaultPrice;
+	private String image;
 	
 	public HomestayRequest() {
 		super();
@@ -33,7 +34,7 @@ public class HomestayRequest {
 	public HomestayRequest(User hostID, String name, String description, String address, Double latitude,
 			Double longitude, String geometry, String street, String country, String city, String province,
 			int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, List<Long> amenityIds, String type,
-			BigDecimal defaultPrice, Boolean reservation) {
+			BigDecimal defaultPrice, Boolean reservation, String image) {
 		super();
 		this.hostID = hostID;
 		this.name = name;
@@ -54,6 +55,7 @@ public class HomestayRequest {
 		this.type = type;
 		this.reservation = reservation;
 		this.defaultPrice = defaultPrice;
+		this.image = image;
 	}
 
 	public User getHostID() {
@@ -208,6 +210,11 @@ public class HomestayRequest {
 		this.defaultPrice = defaultPrice;
 	}
 
-	
-	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 }

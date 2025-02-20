@@ -22,7 +22,7 @@ public class BookingMapper {
 		dto.setHomestayId(booking.getHomestay().getId());
 		dto.setCheckinDate(booking.getCheckinDate().toString());
 		dto.setCheckoutDate(booking.getCheckoutDate().toString());
-		dto.setAdaultGuests(getNumberOfGuests(booking, "ADULT"));
+		dto.setAdultGuests(getNumberOfGuests(booking, "ADULT"));
 		dto.setChildGuests(getNumberOfGuests(booking, "CHILD"));
         dto.setStatus(booking.getBookingStatus());
         dto.setNightlyPrice(booking.getNightlyPrice());

@@ -207,6 +207,9 @@ public class HomestayService {
         if (homestayRequest.getType() != null) {
         	homestay.setType(homestayRequest.getType());
         }
+        if (homestayRequest.getImage() != null) {
+            homestay.setImage(homestayRequest.getImage());
+        }
         if (homestayRequest.isReservation() != null) {
         	homestay.setReservation(homestayRequest.isReservation());
         }

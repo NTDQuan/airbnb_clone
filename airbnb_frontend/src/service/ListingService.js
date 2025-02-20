@@ -103,15 +103,63 @@ const homestayService = {
     searchFilteredHomestayCard: async (filter) => {
         try {
             const response = await axiosInstance.get(`/homestay/public/search`, { params: filter });
-            console.log('Request URL:', `/homestay/public/search?${new URLSearchParams(filter).toString()}`);
-            console.log('API called')
-            console.log(response)
             return response.data.data;
         } catch (error) {
             console.error('Error fetching homestay card:', error);
             throw error;
         }
+    },
+
+    addToFavourite: async (homestayId) => {
+        try {
+            const response = await axiosInstance.post(`/homestay/favourite/add/${homestayId}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching favourite homestay:', error);
+            throw error;
+        }
+    },
+
+    getFavourite: async () => {
+        try {
+            const response = await axiosInstance.get('/homestay/favourite');
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching favourite homestay:', error);
+            throw error;
+        }
+    },
+
+    removeFavourite: async (homestayId) => {
+        try {
+            const response = await axiosInstance.delete(`/homestay/favourite/remove/${homestayId}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching favourite homestay:', error);
+            throw error;
+        }  
+    },
+
+    getReservations: async () => {
+        try {
+            const response = await axiosInstance.get('/bookings');
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching reservations:', error);
+            throw error;
+        }
+    },
+
+    getHostingReservations: async () => {
+        try {
+            const response = await axiosInstance.get('/bookings/reservation');
+            return response.data.data;
+        } catch (error) {
+            console.error('Error fetching hosting reservations:', error);
+            throw error;
+        }
     }
+
 };
 
 export default homestayService;

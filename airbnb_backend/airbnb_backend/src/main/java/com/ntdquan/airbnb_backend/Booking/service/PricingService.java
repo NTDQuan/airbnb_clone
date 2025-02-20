@@ -26,6 +26,6 @@ public class PricingService {
 				nightlyPrice,
 				BigDecimal.ZERO,
 				serviceFee,
-				nightlyPrice.subtract(serviceFee));
+				nightlyPrice.add(serviceFee));
 	}
 }

@@ -7,7 +7,7 @@ import HeartButton from '../HeartButton/HeartButton'
 
 const cx = classNames.bind(styles)
 
-const ListingCard = ({ homestay }) => {
+const ListingCard = ({ homestay, reservation, onAction, disable, actionLabel, actionId, currentUser }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,7 @@ const ListingCard = ({ homestay }) => {
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <img 
-            src="https://placehold.co/600x400" 
+            src={homestay.image ? homestay.image : "https://placehold.co/600x400"} 
             alt="No Available"
             className='
               object-cover
@@ -28,21 +28,18 @@ const ListingCard = ({ homestay }) => {
             '
           />
           <div className="absolute top-3 right-3">
-            <HeartButton/>
+            <HeartButton listingId={homestay.id} currentUser={currentUser}/>
           </div>
         </div>
         <div className='font-semibold text-lg'>
-          {/*{homestay.city}, {homestay.country}*/}
-          Floria, US
+          {homestay.city}, {homestay.country}
         </div>
         <div className='font-light text-neutral-500'>
-          {/*{homestay.type}*/}
-          Beach
+          {homestay.type}
         </div>
         <div className='flex flex-row items-center gap-1'>
           <div className='font-semibold'>
-            {/*$ {homestay.defaultPrice}*/}
-            $ 100
+            $ {homestay.defaultPrice}
           </div>
           <div className='font-light'>night</div>
         </div>

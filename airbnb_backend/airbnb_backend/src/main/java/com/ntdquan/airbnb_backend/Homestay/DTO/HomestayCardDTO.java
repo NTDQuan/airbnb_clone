@@ -9,12 +9,13 @@ public class HomestayCardDTO {
 	private String country;
 	private String type;
 	private BigDecimal defaultPrice;
+	private String image;
 	
 	public HomestayCardDTO() {
 		super();
 	}
 
-	public HomestayCardDTO(Long id, String name, BigDecimal defaultPrice, String city, String country, String type) {
+	public HomestayCardDTO(Long id, String name, BigDecimal defaultPrice, String city, String country, String type, String image) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -22,6 +23,7 @@ public class HomestayCardDTO {
 		this.city = city;
 		this.country = country;
 		this.type = type;
+		this.image = image;
 	}
 
 	public Long getId() {
@@ -70,5 +72,13 @@ public class HomestayCardDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

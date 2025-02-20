@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import com.ntdquan.airbnb_backend.Homestay.Model.FavouriteHomestay;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -53,6 +54,9 @@ public class User {
 	
 	@OneToMany(mappedBy="hostID")
 	private Set<Homestay> homestayList;
+
+	@OneToMany(mappedBy = "user")
+	private Set<FavouriteHomestay> favouriteHomestays;
 	
     @CreatedDate
     @Column(nullable = false, updatable = false)

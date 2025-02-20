@@ -3,6 +3,7 @@ package com.ntdquan.airbnb_backend.Homestay.Model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -55,6 +56,7 @@ public class Homestay {
 	private String type;
 	private boolean reservation;
 	private BigDecimal defaultPrice;
+	private String image;
 	
 	@ManyToMany
 	@JoinTable(
@@ -66,6 +68,9 @@ public class Homestay {
 	
 	@OneToMany(mappedBy = "homestay", cascade = CascadeType.ALL)
 	private List<Booking> bookings;
+
+	@OneToMany(mappedBy = "homestay")
+	private Set<FavouriteHomestay> favouriteHomestays;
 	
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -83,7 +88,7 @@ public class Homestay {
 			Double longitude, String geometry, String street, String city, String province, String country,
 			Integer status, int maxGuests, int bedRoomNum, int bedNum, int bathRoomNum, String type,
 			boolean reservation, BigDecimal defaultPrice, List<Amenity> amenityList, LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
+			LocalDateTime updatedAt, String image) {
 		super();
 		this.id = id;
 		this.hostID = hostID;
@@ -294,4 +299,11 @@ public class Homestay {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 }
